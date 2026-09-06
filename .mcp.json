@@ -1,7 +1,11 @@
 {
   "mcpServers": {
     "stackin": {
-      "url": "https://mcp.stackin.io/mcp"
+      "type": "http",
+      "url": "https://mcp.stackin.io/mcp",
+      "headers": {
+        "Authorization": "Bearer ${STACKIN_API_KEY}"
+      }
     }
   }
 }

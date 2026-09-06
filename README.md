@@ -55,6 +55,50 @@ description cannot carry on its own.
 
 Get a key at [app.stackin.io](https://app.stackin.io).
 
+## Connecting from Claude Code or Cursor
+
+Two ways in, and they behave differently.
+
+**An API key**, which works today. Generate one at
+[app.stackin.io](https://app.stackin.io); it already carries the environment,
+so there is nothing to choose in the client.
+
+Claude Code — `${VAR}` expands from the environment:
+
+```bash
+claude mcp add --transport http stackin https://mcp.stackin.io/mcp \
+  --header "Authorization: Bearer ${STACKIN_API_KEY}"
+```
+
+Cursor — `.cursor/mcp.json` in the project, or `~/.cursor/mcp.json`. **The
+interpolation syntax is not the same**: Cursor wants `${env:VAR}`.
+
+```json
+{
+  "mcpServers": {
+    "stackin": {
+      "url": "https://mcp.stackin.io/mcp",
+      "headers": { "Authorization": "Bearer ${env:STACKIN_API_KEY}" }
+    }
+  }
+}
+```
+
+**OAuth**, with no key at all. Leave the header out: a tool call answers 401
+with `WWW-Authenticate` pointing at
+`/.well-known/oauth-protected-resource`, which is what makes Claude Code offer
+to log in and what `claude mcp login stackin` follows. Cursor can also hold
+static client credentials under an `auth` key instead of registering
+dynamically.
+
+The server supports dynamic client registration (`/oauth/register`), so a
+client that registers itself gets a `client_id` without anyone being asked.
+**This path has not been exercised end to end from either editor** — the
+discovery, the 401 and the whole flow are live and ChatGPT completed a real
+consent, but Claude Code and Cursor specifically have not. If one stops
+midway, look at the `redirect_uri` it uses: `/oauth/authorize` only accepts a
+URI the client registered.
+
 ## One plugin, three clients
 
 The repo carries three manifests because three ecosystems look in three
