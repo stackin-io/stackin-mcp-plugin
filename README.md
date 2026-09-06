@@ -55,6 +55,22 @@ description cannot carry on its own.
 
 Get a key at [app.stackin.io](https://app.stackin.io).
 
+## One plugin, three clients
+
+The repo carries three manifests because three ecosystems look in three
+places, and each one fails silently when its file is missing:
+
+| Client | Looks for | What it reads |
+|---|---|---|
+| ChatGPT / Codex | `.codex-plugin/plugin.json` + `.app.json` | the app id and the hosted MCP |
+| Codex marketplace | `.agents/plugins/marketplace.json` | this repo as a source |
+| Claude Code | `.claude-plugin/marketplace.json`, `.claude-plugin/plugin.json`, `.mcp.json` | the skills and `https://mcp.stackin.io/mcp` |
+
+Adding the folder to Claude Code failed with *"No marketplace manifest found …
+(expected .cursor-plugin/marketplace.json or .claude-plugin/marketplace.json)"*
+until the third row existed. The skills are shared: all three point at
+`skills/`, so a skill written once is read by every client.
+
 ## Before publishing
 
 `app_id` in `.app.json` was filled on 2026-09-06, once `mcp.stackin.io` was registered in

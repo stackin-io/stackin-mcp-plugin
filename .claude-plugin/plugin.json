@@ -1,0 +1,21 @@
+{
+  "name": "stackin",
+  "displayName": "Stackin",
+  "version": "0.2.0",
+  "description": "Issue, consult, reissue and cancel Brazilian NFS-e service invoices, list what your company has issued, and find out why a document was rejected — straight from the tax authority's own answer.",
+  "author": {
+    "name": "Stackin",
+    "url": "https://stackin.io"
+  },
+  "homepage": "https://stackin.io",
+  "repository": "https://github.com/stackin-io/stackin-mcp-plugin",
+  "license": "MIT",
+  "keywords": [
+    "brazil",
+    "fiscal",
+    "invoice",
+    "nfse",
+    "service-invoice"
+  ],
+  "skills": "./skills/"
+}

@@ -1,0 +1,14 @@
+{
+  "name": "stackin",
+  "owner": {
+    "name": "Stackin",
+    "url": "https://stackin.io"
+  },
+  "plugins": [
+    {
+      "name": "stackin",
+      "source": "./",
+      "description": "Issue and manage Brazilian NFS-e service invoices with Stackin."
+    }
+  ]
+}
