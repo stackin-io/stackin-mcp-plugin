@@ -61,6 +61,11 @@ Get a key at [app.stackin.io](https://app.stackin.io).
 OpenAI Developer Mode and a real connector completed the OAuth authorisation. It was left
 empty until then on purpose — it is the one value that cannot be prepared ahead of time.
 
+**A stale tool list was fixed by creating a new app, not by rescanning.** The first app
+(`asdk_app_6a9d458d…`) had been scanned before the NFS-e restriction and kept advertising the
+old surface. `.app.json` now names the second one; if a third is ever created, this file is
+the thing to update, and nothing warns you when it is wrong.
+
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
 advertising eleven tools — including three the server no longer has. Publishing a new plugin

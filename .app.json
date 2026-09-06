@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "stackin",
-      "app_id": "asdk_app_6a9d458d6b188191b946bcc8499e57aa",
+      "app_id": "asdk_app_6a9d68a78d388191a361f4a05bf3b08f",
       "mcp": {
         "url": "https://mcp.stackin.io/mcp",
         "transport": "streamable-http",
