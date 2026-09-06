@@ -1,0 +1,66 @@
+<p align="center">
+  <img src="assets/logo.png" alt="stackin" width="120">
+</p>
+
+<h1 align="center">Stackin plugin</h1>
+
+<p align="center">
+  Brazilian fiscal documents in ChatGPT and Codex, over the hosted Stackin MCP server.
+</p>
+
+---
+
+Ask in plain language — "issue an NFS-e for this service", "why was my last NF-e rejected?" —
+and the model does it through Stackin.
+
+This repository is the **distribution layer**: the manifest, the skills and the assets. The
+server itself lives at `https://mcp.stackin.io/mcp` and speaks the Model Context Protocol;
+any MCP client can use it directly, without this plugin.
+
+## What is here
+
+| Path | What it is |
+|---|---|
+| `.codex-plugin/plugin.json` | Plugin identity, version, category, legal links |
+| `.app.json` | Maps the plugin to the registered MCP connection |
+| `.agents/plugins/marketplace.json` | Local marketplace, for installing before publishing |
+| `skills/` | The four workflows that need more than a tool description |
+| `assets/` | Icon and logo |
+
+## Skills
+
+A skill exists only where the order of operations, or a fiscal rule, adds something a tool
+description cannot carry on its own.
+
+| Skill | What it carries |
+|---|---|
+| `issue-invoice` | Which document the situation needs, and validating before issuing |
+| `consult-invoice` | Finding a document, and which identifier each operation takes |
+| `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
+| `diagnose-invoice` | Reading the tax authority's own rejection code, and choosing between reissue and correction |
+
+## Using the server without the plugin
+
+```json
+{
+  "mcpServers": {
+    "stackin": {
+      "type": "http",
+      "url": "https://mcp.stackin.io/mcp",
+      "headers": { "Authorization": "Bearer your-key" }
+    }
+  }
+}
+```
+
+Get a key at [app.stackin.io](https://app.stackin.io).
+
+## Before publishing
+
+`app_id` in `.app.json` is empty on purpose. It is filled with the identifier the
+OpenAI Developer Mode hands back when `mcp.stackin.io` is registered there — a manual step,
+and the only one that cannot be prepared ahead of time.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

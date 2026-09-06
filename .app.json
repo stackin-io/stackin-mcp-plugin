@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "stackin",
+      "app_id": "",
+      "mcp": {
+        "url": "https://mcp.stackin.io/mcp",
+        "transport": "streamable-http",
+        "authentication": "bearer"
+      }
+    }
+  ]
+}

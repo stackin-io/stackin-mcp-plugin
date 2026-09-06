@@ -1,0 +1,44 @@
+{
+  "name": "stackin",
+  "version": "0.1.0",
+  "description": "Issue and manage Brazilian fiscal documents with Stackin.",
+  "author": {
+    "name": "Stackin",
+    "url": "https://stackin.io"
+  },
+  "homepage": "https://stackin.io",
+  "repository": "https://github.com/stackin-io/stackin-mcp-plugin",
+  "license": "MIT",
+  "keywords": [
+    "brazil",
+    "fiscal",
+    "invoice",
+    "nfe",
+    "nfse"
+  ],
+  "skills": "./skills/",
+  "apps": "./.app.json",
+  "interface": {
+    "displayName": "Stackin",
+    "shortDescription": "Brazilian fiscal documents",
+    "longDescription": "Issue, consult, correct and cancel Brazilian NF-e and NFS-e documents, read what was issued against your company, and find out why a document was rejected — straight from the tax authority's own answer.",
+    "developerName": "Stackin",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://stackin.io",
+    "privacyPolicyURL": "https://app.stackin.io/privacy",
+    "termsOfServiceURL": "https://app.stackin.io/terms",
+    "defaultPrompt": [
+      "Issue an NFS-e for this service.",
+      "List my last invoices.",
+      "Why was my last NF-e rejected?",
+      "Cancel this invoice with the reason I gave."
+    ],
+    "brandColor": "#16A34A",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  }
+}
