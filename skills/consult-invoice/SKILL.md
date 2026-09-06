@@ -20,8 +20,7 @@ today", or to find the document being described.
 
 Every row carries **two identifiers, and they are not interchangeable**:
 
-- `access_key` — what `consult_invoice`, `cancel_invoice`, `correct_invoice` and
-  `get_invoice_pdf` take.
+- `access_key` — what `consult_invoice`, `cancel_invoice` and `get_invoice_pdf` take.
 - `id` — what `reissue_invoice` and `get_invoice_submissions` take.
 
 A rejected row has an `id` and **no access key**: the authorizer never assigned one. That is

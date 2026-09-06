@@ -6,8 +6,8 @@ description: Cancel an authorized fiscal document, or file a correction letter w
 # Cancelling, and what is not cancelling
 
 Cancelling has fiscal and accounting effect and cannot be undone. The tax authority enforces
-a window: **24 hours for an NF-e**, and it varies by municipality for an NFS-e. Outside it,
-cancelling is refused and the fix is a different operation.
+a window, and for an NFS-e it varies by municipality. Outside it, cancelling is refused, and
+there is no other operation here that undoes the document.
 
 ## Confirm before, always
 
@@ -22,20 +22,10 @@ cancelling is refused and the fix is a different operation.
 
 | Situation | Operation |
 |---|---|
-| Wording, carrier, extra information | `correct_invoice` — a correction letter (CC-e) |
-| Values, taxes, recipient, products | Cancel and issue again — a CC-e cannot touch these |
+| Values, taxes, recipient, service description | Cancel and issue again |
 | The document was **rejected**, not authorized | `reissue_invoice` — there is nothing to cancel |
+| The window has closed | Neither: say so plainly instead of retrying |
 
-A correction letter does not consume a credit and does not burn a number in the series. Each
-one supersedes the previous, and the authority keeps at most 20 per document.
-
-## Documents issued against the company
-
-`list_received_invoices` lists what other companies issued **against** this one — the mirror
-of `list_invoices`. It reads what was already collected and never calls the tax authority,
-which caps how often a company may ask per day.
-
-`manifest_received_invoice` is also irreversible: it is a declaration to the tax authority,
-not a note to self. Four codes — 210200 confirms the operation, 210210 acknowledges the
-document, 210220 denies knowing it, 210240 states the operation was not carried out. **Only
-210240 takes a reason, and it requires one.**
+**Correcting a document is not available here.** The correction letter exists for NF-e, and
+this connector serves NFS-e only — do not offer it, and do not claim a wording change can be
+fixed after the fact.

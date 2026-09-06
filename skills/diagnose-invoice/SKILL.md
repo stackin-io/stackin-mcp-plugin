@@ -32,7 +32,7 @@ a message.
 | The document is | Operation |
 |---|---|
 | Rejected | `reissue_invoice` with the id, after fixing the data |
-| Authorized, wording wrong | `correct_invoice` |
+| Authorized, wording wrong | Cancel and issue again — there is no correction letter for NFS-e |
 | Authorized, values wrong | Cancel and issue again |
 
 Before reissuing, `validate_invoice_payload` on the corrected data — it catches a malformed
