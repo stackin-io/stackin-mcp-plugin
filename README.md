@@ -57,9 +57,15 @@ Get a key at [app.stackin.io](https://app.stackin.io).
 
 ## Before publishing
 
-`app_id` in `.app.json` is empty on purpose. It is filled with the identifier the
-OpenAI Developer Mode hands back when `mcp.stackin.io` is registered there — a manual step,
-and the only one that cannot be prepared ahead of time.
+`app_id` in `.app.json` was filled on 2026-09-06, once `mcp.stackin.io` was registered in
+OpenAI Developer Mode and a real connector completed the OAuth authorisation. It was left
+empty until then on purpose — it is the one value that cannot be prepared ahead of time.
+
+**One field still to confirm.** `mcp.authentication` says `bearer`, which was written before
+the server spoke OAuth. The connector now authorises through authorization code + PKCE against
+`api.stackin.io`, so `bearer` may be the wrong word here. The valid values for that field could
+not be found in OpenAI's published documentation, so it was left as it is rather than guessed —
+check it against whatever the submission flow validates.
 
 ## License
 
