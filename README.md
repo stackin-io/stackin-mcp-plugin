@@ -61,11 +61,16 @@ Get a key at [app.stackin.io](https://app.stackin.io).
 OpenAI Developer Mode and a real connector completed the OAuth authorisation. It was left
 empty until then on purpose — it is the one value that cannot be prepared ahead of time.
 
-**One field still to confirm.** `mcp.authentication` says `bearer`, which was written before
-the server spoke OAuth. The connector now authorises through authorization code + PKCE against
-`api.stackin.io`, so `bearer` may be the wrong word here. The valid values for that field could
-not be found in OpenAI's published documentation, so it was left as it is rather than guessed —
-check it against whatever the submission flow validates.
+**Read the identifier off the connector page, not out of the URL.** The address is
+`chatgpt.com/plugins/plugin_asdk_app_…`, and `plugin_` there is part of the route, not of the
+id. The page's own "App ID" field is the value that belongs here — `asdk_app_…`. Getting that
+wrong is silent: nothing validates it until a submission fails.
+
+`mcp.authentication` was `bearer`, written before the server spoke OAuth. The connector page
+now reports **Authorization used: OAuth**, so it says `oauth`. The enum for that field is not in
+OpenAI's published documentation — `developers.openai.com/codex/plugins/apps.md` redirects to a
+404 — so this is the honest description rather than a verified value. If the submission rejects
+it, that is where to look first.
 
 ## License
 
