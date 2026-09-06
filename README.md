@@ -61,6 +61,13 @@ Get a key at [app.stackin.io](https://app.stackin.io).
 OpenAI Developer Mode and a real connector completed the OAuth authorisation. It was left
 empty until then on purpose — it is the one value that cannot be prepared ahead of time.
 
+**The connector caches the tool list from the moment it was scanned.** The app was authorized
+at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
+advertising eleven tools — including three the server no longer has. Publishing a new plugin
+version and running **Scan Tools** is what refreshes it; the fix is not on the server, which
+was already correct. Check the count before testing anything: the server is the truth, and
+`scripts/check_skills.py` reads it live.
+
 **Read the identifier off the connector page, not out of the URL.** The address is
 `chatgpt.com/plugins/plugin_asdk_app_…`, and `plugin_` there is part of the route, not of the
 id. The page's own "App ID" field is the value that belongs here — `asdk_app_…`. Getting that
