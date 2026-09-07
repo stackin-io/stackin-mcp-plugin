@@ -1,6 +1,6 @@
 {
   "name": "stackin",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Issue and manage Brazilian fiscal documents — NF-e and NFS-e — with Stackin.",
   "author": {
     "name": "Stackin",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "Stackin",
     "shortDescription": "Brazilian fiscal documents",
-    "longDescription": "Issue, consult, reissue and cancel Brazilian fiscal documents — NF-e for goods and NFS-e for services — list what your company has issued, and find out why a document was rejected, straight from the tax authority's own answer.",
+    "longDescription": "Issue, consult, correct and cancel Brazilian fiscal documents — NF-e for goods and NFS-e for services — read what other companies issued against your company and file your position on it, and find out why a document was rejected, straight from the tax authority's own answer.",
     "developerName": "Stackin",
     "category": "Productivity",
     "capabilities": [
