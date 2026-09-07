@@ -126,11 +126,13 @@ empty until then on purpose — it is the one value that cannot be prepared ahea
 old surface. `.app.json` now names the second one; if a third is ever created, this file is
 the thing to update, and nothing warns you when it is wrong.
 
-**NF-e issuance widened the same surface on 2026-09-07.** The count did not change — still
-eight tools — but `document_type` now accepts `nfe`, and the schemas and descriptions the
-connector cached say otherwise. A count check will not catch this: publish a new plugin
-version and run **Scan Tools**, then confirm that `issue_invoice` offers `nfe` before testing
-a goods invoice.
+**NF-e came back on 2026-09-07, in two steps.** First `document_type` widened to accept `nfe`
+on the existing eight tools — a change the count could not reveal. Then the four NF-e-only
+operations came back: `correct_invoice`, `invalidate_numbering`, `list_received_invoices` and
+`manifest_received_invoice`. **Twelve tools now**, seven skills.
+
+Publish a new plugin version and run **Scan Tools**; a connector scanned before this still
+advertises eight tools that only accept `nfse`.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
