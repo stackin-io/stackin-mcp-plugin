@@ -26,6 +26,10 @@ there is no other operation here that undoes the document.
 | The document was **rejected**, not authorized | `reissue_invoice` — there is nothing to cancel |
 | The window has closed | Neither: say so plainly instead of retrying |
 
-**Correcting a document is not available here.** The correction letter exists for NF-e, and
-this connector serves NFS-e only — do not offer it, and do not claim a wording change can be
-fixed after the fact.
+**Correcting a document is not available here.** The correction letter (CC-e) exists for
+NF-e at the SEFAZ, but this connector does not register a tool for it — do not offer it, and
+do not claim a wording change can be fixed after the fact.
+
+The cancellation window differs by document: a municipality sets its own for an NFS-e, and
+the SEFAZ gives 24 hours for an NF-e. Outside it, cancelling is refused and the answer is to
+issue a reversing document, which is an accountant's call rather than this connector's.

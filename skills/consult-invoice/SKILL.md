@@ -32,5 +32,5 @@ Say which environment the document was issued in. A homologation document looks 
 and has no fiscal value — someone reading a status without that context can believe they
 invoiced a client when they did not.
 
-`get_invoice_pdf` returns the printable rendering, NFS-e only. The XML is the legally valid
-document; the PDF is a convenience.
+`get_invoice_pdf` returns the printable rendering for either type — a DANFE for an NF-e, a
+DANFSe for an NFS-e. The XML is the legally valid document; the PDF is a convenience.
