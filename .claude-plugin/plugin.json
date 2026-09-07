@@ -2,7 +2,7 @@
   "name": "stackin",
   "displayName": "Stackin",
   "version": "0.2.0",
-  "description": "Issue, consult, reissue and cancel Brazilian NFS-e service invoices, list what your company has issued, and find out why a document was rejected — straight from the tax authority's own answer.",
+  "description": "Issue and manage Brazilian fiscal documents — NF-e and NFS-e — with Stackin.",
   "author": {
     "name": "Stackin",
     "url": "https://stackin.io"
@@ -15,7 +15,8 @@
     "fiscal",
     "invoice",
     "nfse",
-    "service-invoice"
+    "nfe",
+    "danfe"
   ],
   "skills": "./skills/"
 }

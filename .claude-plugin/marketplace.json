@@ -8,7 +8,7 @@
     {
       "name": "stackin",
       "source": "./",
-      "description": "Issue and manage Brazilian NFS-e service invoices with Stackin."
+      "description": "Issue and manage Brazilian fiscal documents — NF-e and NFS-e — with Stackin."
     }
   ]
 }
