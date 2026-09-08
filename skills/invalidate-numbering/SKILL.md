@@ -22,8 +22,9 @@ numbers, not two. One digit wrong and the company loses numbers it still needed,
    1, numbers 10 through 12 — three numbers, correct?"
 2. Confirm none of them was authorized. An authorized document is **cancelled**, never
    invalidated; `consult_invoice` settles it when there is any doubt.
-3. `invalidate_numbering`, with the reason in the person's own words — minimum 15 characters,
-   and it reaches the tax authority verbatim.
+3. `invalidate_numbering`, with the reason in the person's own words — 15 to 255 characters,
+   and it reaches the tax authority verbatim. The series is a string, not a number: `"1"`,
+   and the range is refused before transmission if it runs backwards.
 
 ## What not to do
 

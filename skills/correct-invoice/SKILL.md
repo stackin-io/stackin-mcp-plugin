@@ -24,8 +24,8 @@ person believes the document is fixed, and the audit finds the original figures.
 
 1. `consult_invoice` — confirm which document, and read the client, the amount and the date
    back to the person.
-2. Read the correction text back too. It reaches the tax authority verbatim, minimum 15
-   characters.
+2. Read the correction text back too. It reaches the tax authority verbatim and is 15 to
+   1000 characters.
 3. `correct_invoice`.
 
 ## What not to do
