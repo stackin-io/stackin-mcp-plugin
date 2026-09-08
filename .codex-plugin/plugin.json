@@ -1,12 +1,12 @@
 {
   "name": "stackin",
-  "version": "0.3.0",
-  "description": "Issue and manage Brazilian fiscal documents — NF-e and NFS-e — with Stackin.",
+  "version": "1.0.0",
+  "description": "Emita e gerencie notas fiscais brasileiras — NF-e e NFS-e — com a Stackin.",
   "author": {
     "name": "Stackin",
-    "url": "https://stackin.io"
+    "url": "https://app.stackin.io"
   },
-  "homepage": "https://stackin.io",
+  "homepage": "https://app.stackin.io",
   "repository": "https://github.com/stackin-io/stackin-mcp-plugin",
   "license": "MIT",
   "keywords": [
@@ -21,26 +21,26 @@
   "apps": "./.app.json",
   "interface": {
     "displayName": "Stackin",
-    "shortDescription": "Brazilian fiscal documents",
-    "longDescription": "Issue, consult, correct and cancel Brazilian fiscal documents — NF-e for goods and NFS-e for services — read what other companies issued against your company and file your position on it, and find out why a document was rejected, straight from the tax authority's own answer.",
+    "shortDescription": "Emita e gerencie notas fiscais",
+    "longDescription": "A Stackin permite emitir e gerenciar documentos fiscais brasileiros pelo ChatGPT. Crie NF-e e NFS-e, acompanhe autorizações e rejeições, consulte documentos emitidos, gere PDFs e realize cancelamentos e outros eventos fiscais. Todas as operações ficam centralizadas em uma única plataforma, com integração aos autorizadores fiscais brasileiros.",
     "developerName": "Stackin",
-    "category": "Productivity",
+    "category": "Business",
     "capabilities": [
       "Read",
       "Write"
     ],
-    "websiteURL": "https://stackin.io",
-    "supportURL": "https://app.stackin.io/support",
+    "websiteURL": "https://app.stackin.io",
     "privacyPolicyURL": "https://app.stackin.io/privacy",
     "termsOfServiceURL": "https://app.stackin.io/terms",
     "defaultPrompt": [
-      "Issue an NFS-e for this service.",
-      "List my last invoices.",
-      "Why was my last NFS-e rejected?",
-      "Cancel this invoice with the reason I gave."
+      "Emita uma NFS-e para este serviço.",
+      "Liste minhas últimas notas.",
+      "Por que minha última NFS-e foi rejeitada?",
+      "Cancele esta nota com o motivo que eu dei."
     ],
     "brandColor": "#16A34A",
-    "composerIcon": "./assets/icon.png",
-    "logo": "./assets/logo.png"
+    "composerIcon": "./assets/composer-icon.png",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo.png"
   }
 }
