@@ -33,10 +33,9 @@
     "privacyPolicyURL": "https://app.stackin.io/privacy",
     "termsOfServiceURL": "https://app.stackin.io/terms",
     "defaultPrompt": [
-      "Emita uma NFS-e para este serviço.",
-      "Liste minhas últimas notas.",
-      "Por que minha última NFS-e foi rejeitada?",
-      "Cancele esta nota com o motivo que eu dei."
+      "Emita uma NFS-e de consultoria para o meu cliente.",
+      "Por que minha última nota foi rejeitada?",
+      "Liste minhas notas emitidas e me mostre o PDF da última."
     ],
     "brandColor": "#16A34A",
     "composerIcon": "./assets/composer-icon.png",
