@@ -5,7 +5,7 @@
 <h1 align="center">Stackin plugin</h1>
 
 <p align="center">
-  Brazilian fiscal documents in ChatGPT and Codex, over the hosted Stackin MCP server.
+  Brazilian fiscal documents in ChatGPT, Codex and Claude Code, over the hosted Stackin MCP server.
 </p>
 
 ---
@@ -24,7 +24,10 @@ any MCP client can use it directly, without this plugin.
 | `.codex-plugin/plugin.json` | Plugin identity, version, category, legal links |
 | `.app.json` | Maps the plugin to the registered MCP connection |
 | `.agents/plugins/marketplace.json` | Local marketplace, for installing before publishing |
-| `skills/` | The four workflows that need more than a tool description |
+| `.claude-plugin/plugin.json` | Plugin identity for Claude Code |
+| `.claude-plugin/marketplace.json` | This repository as a marketplace Claude Code can add |
+| `.mcp.json` | The hosted MCP server, for Claude Code |
+| `skills/` | The seven workflows that need more than a tool description |
 | `assets/` | Icon and logo |
 
 ## Skills
@@ -38,6 +41,9 @@ description cannot carry on its own.
 | `consult-invoice` | Finding a document, and which identifier each operation takes |
 | `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
 | `diagnose-invoice` | Reading the tax authority's own rejection code, and choosing between reissue and correction |
+| `correct-invoice` | Filing a correction letter against an authorized NF-e, and what a CC-e may not change |
+| `invalidate-numbering` | Declaring an NF-e numbering range reserved and never used |
+| `received-invoices` | Reading documents other companies issued against this one, and answering them |
 
 ## Using the server without the plugin
 
@@ -54,6 +60,25 @@ description cannot carry on its own.
 ```
 
 Get a key at [app.stackin.io](https://app.stackin.io).
+
+## Installing in Claude Code
+
+The repository is its own marketplace, so it installs straight from GitHub:
+
+```bash
+claude plugin marketplace add stackin-io/stackin-mcp-plugin
+claude plugin install stackin@stackin
+```
+
+The plugin brings the seven skills and points Claude Code at
+`https://mcp.stackin.io/mcp`. **There is nothing to configure**: the first tool
+call answers 401 with `WWW-Authenticate`, and Claude Code follows it — run
+`/mcp` in the session, authorize in the browser that opens, and the token is
+stored for you. The client registers itself through `/oauth/register`, so no
+`client_id` is handed out by anyone.
+
+Prefer a key instead? Add the server by hand with the header, as described in
+the next section, rather than through the plugin.
 
 ## Connecting from Claude Code or Cursor
 
@@ -87,15 +112,18 @@ interpolation syntax is not the same**: Cursor wants `${env:VAR}`.
 **OAuth**, with no key at all. Leave the header out: a tool call answers 401
 with `WWW-Authenticate` pointing at
 `/.well-known/oauth-protected-resource`, which is what makes Claude Code offer
-to log in and what `claude mcp login stackin` follows. Cursor can also hold
+to log in when you run `/mcp` in the session. Cursor can also hold
 static client credentials under an `auth` key instead of registering
 dynamically.
 
 The server supports dynamic client registration (`/oauth/register`), so a
 client that registers itself gets a `client_id` without anyone being asked.
-**This path has not been exercised end to end from either editor** — the
-discovery, the 401 and the whole flow are live and ChatGPT completed a real
-consent, but Claude Code and Cursor specifically have not. If one stops
+Verified on 2026-09-09, up to the browser: the server connects with no
+header at all, a tool call answers 401 with the `resource_metadata` challenge,
+the protected-resource document resolves, `/oauth/register` returns 201 and
+`/oauth/authorize` redirects to the consent screen. **The browser leg itself
+has not been walked from Claude Code or Cursor** — ChatGPT completed a real
+consent, those two have not. If one stops
 midway, look at the `redirect_uri` it uses: `/oauth/authorize` only accepts a
 URI the client registered.
 
