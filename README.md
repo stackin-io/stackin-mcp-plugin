@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Twelve tools, seven skills, one hosted server.** No SDK to install, no XML to sign, no
+**Sixteen tools, nine skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -31,6 +31,7 @@ certificate to juggle in the client.
 - 📥 **Received invoices** — read and manifest documents other companies issued against yours
 - 🔢 **Numbering invalidation** for a reserved, never-used NF-e range
 - 📄 **DANFE / DANFSe PDF** straight out of the conversation
+- 🔎 **Fiscal code lookup** — resolve an NCM, CFOP or CEST instead of guessing one, and confirm who a CNPJ belongs to
 
 ## Table of contents
 
@@ -54,7 +55,7 @@ claude plugin marketplace add stackin-io/stackin-mcp-plugin
 claude plugin install stackin@stackin
 ```
 
-The plugin brings the seven skills and points Claude Code at `https://mcp.stackin.io/mcp`.
+The plugin brings the nine skills and points Claude Code at `https://mcp.stackin.io/mcp`.
 **There is nothing to configure**: the first tool call answers 401 with `WWW-Authenticate`,
 and Claude Code follows it — run `/mcp` in the session, authorize in the browser that opens,
 and the token is stored for you. The client registers itself through `/oauth/register`, so no
@@ -136,6 +137,8 @@ description cannot carry on its own.
 | `correct-invoice` | Filing a correction letter against an authorized NF-e, and what a CC-e may not change |
 | `invalidate-numbering` | Declaring an NF-e numbering range reserved and never used |
 | `received-invoices` | Reading documents other companies issued against this one, and answering them |
+| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, instead of guessing one |
+| `taxpayer-lookup` | Confirming who a tax id belongs to, and why a 404 is not an invalid CNPJ |
 
 ## What is in this repository
 
@@ -151,7 +154,7 @@ server itself lives at `https://mcp.stackin.io/mcp` and speaks the Model Context
 | `.claude-plugin/marketplace.json` | This repository as a marketplace Claude Code can add |
 | `.mcp.json` | The hosted MCP server, for Claude Code |
 | `server.json` | The MCP Registry entry |
-| `skills/` | The seven workflows that need more than a tool description |
+| `skills/` | The nine workflows that need more than a tool description |
 | `assets/` | Icon and logo |
 
 ## One plugin, three clients
@@ -204,6 +207,17 @@ adds the skills and saves you the manual configuration.
 **Is it free?** Issuing consumes credits from your Stackin account. Consulting and cancelling
 do not.
 
+**Why do the code lookups answer 403 on my connection?** Because it was made over OAuth.
+`lookup_fiscal_code`, `search_fiscal_codes`, `list_fiscal_kinds` and `lookup_taxpayer` are
+the four tools the API maps to no scope, so an authorized app is refused no matter what it
+was granted — reconnecting will not change it. They work when the connection carries the
+company's own API key.
+
+**A CNPJ I know is valid comes back 404 from `lookup_taxpayer`. Is it wrong?** Probably not.
+That registry reloads monthly from the Receita Federal's dump, so a company registered in
+the last few weeks is not in it yet. It is not a validity check, and nothing should block an
+invoice over it.
+
 ## Maintainer notes
 
 `app_id` in `.app.json` was filled on 2026-09-06, once `mcp.stackin.io` was registered in
@@ -218,7 +232,13 @@ the thing to update, and nothing warns you when it is wrong.
 **NF-e came back on 2026-09-07, in two steps.** First `document_type` widened to accept `nfe`
 on the existing eight tools — a change the count could not reveal. Then the four NF-e-only
 operations came back: `correct_invoice`, `invalidate_numbering`, `list_received_invoices` and
-`manifest_received_invoice`. **Twelve tools now**, seven skills.
+`manifest_received_invoice`. **Twelve tools then**, seven skills.
+
+**The four lookup tools landed on 2026-09-10**: `lookup_fiscal_code`,
+`search_fiscal_codes`, `list_fiscal_kinds` and `lookup_taxpayer`, with the
+`fiscal-lookup` and `taxpayer-lookup` skills. **Sixteen tools now**, nine skills. They are the first tools
+here an OAuth connection cannot use at all — the API maps their routes to no scope,
+so only a company's own API key reaches them, and reconnecting does not change that.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
