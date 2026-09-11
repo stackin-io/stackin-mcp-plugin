@@ -15,14 +15,17 @@
     "invoice",
     "nfse",
     "nfe",
-    "danfe"
+    "danfe",
+    "ncm",
+    "cfop",
+    "cnpj"
   ],
   "skills": "./skills/",
   "apps": "./.app.json",
   "interface": {
     "displayName": "Stackin",
     "shortDescription": "Emita e gerencie notas fiscais",
-    "longDescription": "A Stackin permite emitir e gerenciar documentos fiscais brasileiros pelo ChatGPT. Crie NF-e e NFS-e, acompanhe autorizações e rejeições, consulte documentos emitidos, gere PDFs e realize cancelamentos e outros eventos fiscais. Todas as operações ficam centralizadas em uma única plataforma, com integração aos autorizadores fiscais brasileiros.",
+    "longDescription": "A Stackin permite emitir e gerenciar documentos fiscais brasileiros pelo ChatGPT. Crie NF-e e NFS-e, acompanhe autorizações e rejeições, consulte documentos emitidos, gere PDFs e realize cancelamentos e outros eventos fiscais. Consulte tambem as tabelas fiscais publicadas — NCM, CFOP, CEST — para preencher um documento com o codigo certo em vez de adivinhar. Todas as operações ficam centralizadas em uma única plataforma, com integração aos autorizadores fiscais brasileiros.",
     "developerName": "Stackin",
     "category": "Business",
     "capabilities": [
