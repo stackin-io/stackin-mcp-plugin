@@ -207,11 +207,10 @@ adds the skills and saves you the manual configuration.
 **Is it free?** Issuing consumes credits from your Stackin account. Consulting and cancelling
 do not.
 
-**Why do the code lookups answer 403 on my connection?** Because it was made over OAuth.
-`lookup_fiscal_code`, `search_fiscal_codes`, `list_fiscal_kinds` and `lookup_taxpayer` are
-the four tools the API maps to no scope, so an authorized app is refused no matter what it
-was granted — reconnecting will not change it. They work when the connection carries the
-company's own API key.
+**The code lookups answered 403 and now they do not. What changed?** Until 2026-09-10
+those four routes carried no OAuth scope, so an authorized app was refused whatever it had
+been granted. They now need `invoice:read`, which every connection already holds — a
+connection made before that date works without being remade.
 
 **A CNPJ I know is valid comes back 404 from `lookup_taxpayer`. Is it wrong?** Probably not.
 That registry reloads monthly from the Receita Federal's dump, so a company registered in
@@ -236,9 +235,9 @@ operations came back: `correct_invoice`, `invalidate_numbering`, `list_received_
 
 **The four lookup tools landed on 2026-09-10**: `lookup_fiscal_code`,
 `search_fiscal_codes`, `list_fiscal_kinds` and `lookup_taxpayer`, with the
-`fiscal-lookup` and `taxpayer-lookup` skills. **Sixteen tools now**, nine skills. They are the first tools
-here an OAuth connection cannot use at all — the API maps their routes to no scope,
-so only a company's own API key reaches them, and reconnecting does not change that.
+`fiscal-lookup` and `taxpayer-lookup` skills. **Sixteen tools now**, nine skills. They shipped refusing every OAuth
+token, because their routes carried no scope at all; `invoice:read` was granted to them on
+the same day, so nothing has to be reconnected.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
