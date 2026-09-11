@@ -8,13 +8,6 @@ description: Confirm who a tax id belongs to before invoicing them, by exact mat
 Read-only. One tool, `lookup_taxpayer`, and one question: *who is this CNPJ I am about
 to invoice*.
 
-## This needs an API key, not OAuth
-
-**`lookup_taxpayer` is refused over OAuth.** A connection made through the consent screen
-answers `403` on every call, and **reconnecting does not fix it** — the server maps this
-route to no scope, so there is no permission to grant. It works when the connection
-carries the company's own API key.
-
 ## Exact match, and nothing else
 
 Pass the id exactly. Punctuation is fine — `00.000.000/0001-91` works.

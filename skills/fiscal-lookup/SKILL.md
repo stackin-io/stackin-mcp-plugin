@@ -8,18 +8,6 @@ description: Resolve an NCM, CFOP, CEST or other published fiscal code before it
 Read-only. These read published tables — nothing here issues, changes or cancels a
 document.
 
-## These need an API key, not OAuth
-
-**`lookup_fiscal_code`, `search_fiscal_codes` and `list_fiscal_kinds` are refused over
-OAuth.** If the connection was made through the consent screen — how most people install
-this plugin — every call answers `403`, and **reconnecting does not fix it**. The server
-maps these routes to no scope at all, so there is no permission for the user to grant.
-
-They work when the connection carries the company's own API key.
-
-Say that plainly. Sending someone through a consent screen that cannot help wastes their
-time and they come back with the same error.
-
 ## Which classification answers which question
 
 They are not interchangeable, and a code from the wrong family is simply wrong.
