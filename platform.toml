@@ -1,0 +1,12 @@
+[project]
+name = "stackin-mcp-plugin"
+type = "plugin"
+language = "node"
+
+[source_host]
+kind = "github"
+repo = "stackin-io/stackin-mcp-plugin"
+
+[release]
+strategy = "semver"
+changelog = "conventional"
