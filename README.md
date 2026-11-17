@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Sixteen tools, nine skills, one hosted server.** No SDK to install, no XML to sign, no
+**Twenty tools, eleven skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -32,6 +32,8 @@ certificate to juggle in the client.
 - 🔢 **Numbering invalidation** for a reserved, never-used NF-e range
 - 📄 **DANFE / DANFSe PDF** straight out of the conversation
 - 🔎 **Fiscal code lookup** — resolve an NCM, CFOP or CEST instead of guessing one, and confirm who a CNPJ belongs to
+- 👥 **Client registry** — save a recipient once and issue to it by id, instead of retyping it every month
+- 🏢 **Several companies on one connection** — list what the connection covers and pick the company per call
 
 ## Table of contents
 
@@ -55,7 +57,7 @@ claude plugin marketplace add stackin-io/stackin-mcp-plugin
 claude plugin install stackin@stackin
 ```
 
-The plugin brings the nine skills and points Claude Code at `https://mcp.stackin.io/mcp`.
+The plugin brings the eleven skills and points Claude Code at `https://mcp.stackin.io/mcp`.
 **There is nothing to configure**: the first tool call answers 401 with `WWW-Authenticate`,
 and Claude Code follows it — run `/mcp` in the session, authorize in the browser that opens,
 and the token is stored for you. The client registers itself through `/oauth/register`, so no
@@ -130,7 +132,7 @@ description cannot carry on its own.
 
 | Skill | What it carries |
 |---|---|
-| `issue-invoice` | Which document the situation needs, and validating before issuing |
+| `issue-invoice` | Which document the situation needs, looking the recipient up in the client registry, and validating before issuing |
 | `consult-invoice` | Finding a document, and which identifier each operation takes |
 | `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
 | `diagnose-invoice` | Reading the tax authority's own rejection code, and choosing between reissue and correction |
@@ -139,6 +141,8 @@ description cannot carry on its own.
 | `received-invoices` | Reading documents other companies issued against this one, and answering them |
 | `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, instead of guessing one |
 | `taxpayer-lookup` | Confirming who a tax id belongs to, and why a 404 is not an invalid CNPJ |
+| `manage-clients` | Finding, saving and fixing the company's saved clients, and why a duplicate is refused |
+| `select-company` | Choosing which company a call acts for when one connection covers several |
 
 ## What is in this repository
 
@@ -154,7 +158,7 @@ server itself lives at `https://mcp.stackin.io/mcp` and speaks the Model Context
 | `.claude-plugin/marketplace.json` | This repository as a marketplace Claude Code can add |
 | `.mcp.json` | The hosted MCP server, for Claude Code |
 | `server.json` | The MCP Registry entry |
-| `skills/` | The nine workflows that need more than a tool description |
+| `skills/` | The eleven workflows that need more than a tool description |
 | `assets/` | Icon and logo |
 
 ## One plugin, three clients
@@ -235,9 +239,21 @@ operations came back: `correct_invoice`, `invalidate_numbering`, `list_received_
 
 **The four lookup tools landed on 2026-09-10**: `lookup_fiscal_code`,
 `search_fiscal_codes`, `list_fiscal_kinds` and `lookup_taxpayer`, with the
-`fiscal-lookup` and `taxpayer-lookup` skills. **Sixteen tools now**, nine skills. They shipped refusing every OAuth
+`fiscal-lookup` and `taxpayer-lookup` skills. **Sixteen tools then**, nine skills. They shipped refusing every OAuth
 token, because their routes carried no scope at all; `invoice:read` was granted to them on
 the same day, so nothing has to be reconnected.
+
+**Several companies on one connection, 2026-11-16** (server v0.3.0). A connection authorized through the
+consent screen may cover more than one company. `list_authorized_companies` lists them with
+their permissions, and every tool that touches a company's documents takes `company_id` or
+`company_tax_id`; a connection with a single company needs neither. The plugin only caught up
+with it a day later, with the `select-company` skill.
+
+**The client registry landed on 2026-11-17** (server v0.6.0): `list_clients`, `get_client`
+and `save_client`, and `issue_invoice` taking `client_id` and `update_client`. A new
+recipient is saved as a client after a successful issuance. **Twenty tools now**, eleven
+skills — `manage-clients` and `select-company` are the two new ones, and `issue-invoice` now
+looks the recipient up before typing it.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
