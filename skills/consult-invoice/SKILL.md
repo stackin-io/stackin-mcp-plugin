@@ -22,6 +22,11 @@ It pages: `limit` defaults to 20 and stops at 100, and `offset` walks back throu
 history. **Absence from one page is not absence from the history** — say what you looked at,
 rather than concluding a document does not exist because it was not on the first page.
 
+The rows leave out each document's item lines and `fiscal_operation` unless `include_items`
+is set — they are most of the size. To read one document's lines, `consult_invoice` brings
+them back; turn `include_items` on only when the question is about the items across many
+documents.
+
 Every row carries **two identifiers, and they are not interchangeable**:
 
 - `access_key` — what `consult_invoice`, `cancel_invoice` and `get_invoice_pdf` take.
