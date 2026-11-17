@@ -27,6 +27,27 @@ any field.
 Asking which one is cheaper than issuing the wrong one. A service invoiced as NF-e is not a
 formatting mistake, it is the wrong fiscal document.
 
+## The recipient
+
+Look the recipient up with **`list_clients`** before typing one. It searches the company's
+saved clients by part of the name or by CPF/CNPJ, most recently used first. When the client
+is there, pass its id as **`client_id`**: the registry fills the name, the document and the
+address, and `client_name` and `tax_id` become optional. A recipient retyped every month is
+typed differently every month; the saved one is the same each time.
+
+- **One match** — read the name and the document back, then use its id.
+- **Several** — ask which one. Two clients with similar names are two different taxpayers.
+- **None** — send `client_name` and `tax_id` as before. A new recipient is saved as a client
+  after a successful issuance, so the next invoice finds it.
+
+Anything sent alongside `client_id` overrides the saved data for this document only. Set
+**`update_client: true`** when the person says the client itself changed — a new address, a
+new email — so the registry keeps the correction. Do not set it for a one-off difference.
+
+`list_clients` hides inactive clients unless `include_inactive` is set; a client that is not
+found may only be deactivated. Saving or fixing a client without issuing anything is the
+`manage-clients` skill.
+
 ## What a line is worth
 
 Each item takes **`unit_price`** — the price of one unit — or **`amount`** — the line's gross
@@ -43,18 +64,24 @@ document from the one the person described.
 
 ## Order
 
-1. `validate_invoice_payload` — checks NCM, CFOP, amounts and the address without sending
+1. `list_clients` — find the recipient, and take its id when it is saved.
+2. `validate_invoice_payload` — checks NCM, CFOP, amounts and the address without sending
    anything. Nothing is issued, so it is safe while the data is still being assembled.
-2. Fix what it reports.
-3. `issue_invoice`.
-4. Report the outcome: the status, the access key, and — when the authorizer refused — its
+3. Fix what it reports.
+4. `issue_invoice`, with `client_id` when step 1 found the client.
+5. Report the outcome: the status, the access key, and — when the authorizer refused — its
    own message.
+
+When the connection covers several companies, every one of these calls also names the
+issuing company with `company_id` or `company_tax_id` — see `select-company`.
 
 ## What not to do
 
 - Do not invent an NCM or a CFOP. A wrong one is a rejection, and the person who asked has
   no way to know it was guessed.
-- Do not invent an address. Ask.
+- Do not invent an address. Ask — or take it from the saved client.
+- Do not retype a recipient the registry already has. The saved name and address are the
+  ones earlier documents went out with; a retyped one drifts from them.
 - Do not retry a failed issuance blindly. A lost response does not mean nothing was issued —
   pass an **`idempotency_key`** on the first call and reuse it on the retry, which replays the
   first answer instead of issuing a second document. Without one, check `list_invoices` before
