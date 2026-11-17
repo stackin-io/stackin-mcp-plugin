@@ -1,6 +1,6 @@
 {
   "name": "stackin",
-  "description": "Brazilian fiscal documents from Claude Code: issue NF-e and NFS-e, read status and PDFs, diagnose a rejection and cancel.",
+  "description": "Brazilian fiscal documents from Claude Code: issue NF-e and NFS-e, read status and PDFs, diagnose a rejection and cancel, and keep the clients you invoice.",
   "owner": {
     "name": "Stackin",
     "url": "https://app.stackin.io"
