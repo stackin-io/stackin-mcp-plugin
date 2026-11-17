@@ -52,3 +52,7 @@ act on it, say what the field contains rather than interpreting it as active or 
 Before issuing, to confirm the recipient's name matches who the person thinks they are
 billing. The codes that go on the document itself are a different job — see
 `fiscal-lookup`.
+
+Look in the company's own clients first: `list_clients` finds a recipient already invoiced,
+and a saved client needs no lookup at all. Once a new recipient is confirmed here, the
+issuance saves it as a client — or `save_client` keeps it beforehand; see `manage-clients`.
