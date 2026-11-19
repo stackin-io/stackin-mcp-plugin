@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Twenty tools, eleven skills, one hosted server.** No SDK to install, no XML to sign, no
+**Twenty-four tools, eleven skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -209,7 +209,8 @@ API key, or on the connection you authorized over OAuth — there is nothing to 
 adds the skills and saves you the manual configuration.
 
 **Is it free?** Issuing consumes credits from your Stackin account. Consulting and cancelling
-do not.
+do not. Received NF-e are included up to 50 a month; past that, each new one costs R$ 0,05
+of credit (`get_usage` shows where the account stands).
 
 **The code lookups answered 403 and now they do not. What changed?** Until 2026-09-10
 those four routes carried no OAuth scope, so an authorized app was refused whatever it had
@@ -254,6 +255,12 @@ and `save_client`, and `issue_invoice` taking `client_id` and `update_client`. A
 recipient is saved as a client after a successful issuance. **Twenty tools now**, eleven
 skills — `manage-clients` and `select-company` are the two new ones, and `issue-invoice` now
 looks the recipient up before typing it.
+
+**Usage, received sync and client lifecycle landed on 2026-11-18** (server v0.8.0):
+`get_usage` (plan, invoices and received NF-e used, credit left), `sync_received_invoices`
+(asks the SEFAZ now; one-hour wait after catching up), `deactivate_client` and
+`reactivate_client`, and `list_invoices` filtering by `external_reference`.
+`list_clients` takes `inactive` instead of `include_inactive`. **Twenty-four tools now.**
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
