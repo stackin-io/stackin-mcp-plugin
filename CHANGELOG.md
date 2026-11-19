@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.2.0 — 2026-11-18
+
+### Docs
+- **readme:** twenty-four tools, received billing in the FAQ (#4)
+- **skills:** deactivate and reactivate clients, inactive listing (#4)
+- **skills:** received invoices billing, on-demand sync and the one-hour wait (#4)
+
+### Build
+- **manifests:** version 1.2.0 (#4)
+
 ## v1.1.0 — 2026-11-17
 
 ### Features
