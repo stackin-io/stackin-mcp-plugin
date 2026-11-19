@@ -44,8 +44,8 @@ Anything sent alongside `client_id` overrides the saved data for this document o
 **`update_client: true`** when the person says the client itself changed — a new address, a
 new email — so the registry keeps the correction. Do not set it for a one-off difference.
 
-`list_clients` hides inactive clients unless `include_inactive` is set; a client that is not
-found may only be deactivated. Saving or fixing a client without issuing anything is the
+`list_clients` shows active clients only; a client that is not found may be deactivated —
+`list_clients` with `inactive` set shows those, and `reactivate_client` brings one back. Saving or fixing a client without issuing anything is the
 `manage-clients` skill.
 
 ## What a line is worth

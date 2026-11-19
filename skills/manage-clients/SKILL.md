@@ -16,8 +16,11 @@ punctuation. Most recently used first; `limit` defaults to 20 and stops at 100, 
 pages. `total` is how many match, not how many came back, so **absence from one page is not
 absence from the registry**.
 
-Inactive clients are left out unless `include_inactive` is set. When a client the person
-knows exists does not show up, look there before saving it again.
+`list_clients` shows active clients; with `inactive` set it shows the deactivated ones
+instead. When a client the person knows exists does not show up, look there before saving
+it again, and bring it back with `reactivate_client`. `deactivate_client` hides one that is
+no longer used — it is kept, and the documents already issued to it still name it; confirm
+with the person first.
 
 `get_client` with the id reads one client with its full address. Each record carries
 `source` — `manual` (saved by hand), `issued` (imported from issued invoices) or `issuance`
