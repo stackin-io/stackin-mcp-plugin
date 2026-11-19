@@ -14,8 +14,8 @@ straight from the tax authority.
 
 ## When they do not
 
-`list_invoices` — filters by document type and status (`pending`, `authorized`,
-`rejected`, `cancelled`), newest first. Use it for "my last invoices", "what was rejected
+`list_invoices` — filters by document type and status (`authorized`, `rejected`,
+`cancelled`), newest first. Use it for "my last invoices", "what was rejected
 today", or to find the document being described.
 
 It pages: `limit` defaults to 20 and stops at 100, and `offset` walks back through the
