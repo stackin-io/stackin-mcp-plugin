@@ -10,10 +10,16 @@ The mirror of the issuance history: `list_invoices` shows what the company issue
 has no distribution channel.
 
 Before a manifestation the SEFAZ sends a **summary** only (`resNFe`): access key, issuer,
-amount, date. The **full document** (`nfeProc`) arrives after one. Reading the list never
-calls the SEFAZ — the
-authorizer caps how often a CNPJ may ask for its distribution per day, so collection runs on a
-schedule and asking again cannot spend that allowance faster.
+amount, date. The **full document** (`nfeProc`) arrives after one; `has_full_document` says
+whether it is already stored. Reading the list never calls the SEFAZ. Collection runs on a
+schedule, every six hours, and `sync_received_invoices` asks now. After a read that finds
+nothing more the SEFAZ makes the CNPJ wait **one hour** — inside that wait the sync answers
+that it is too soon and says when to try; do not retry in a loop.
+
+**Cost.** Every plan includes **50 received NF-e a month**; past that, each new one costs
+**R$ 0,05**, taken from the account's credit. Some older accounts are exempt.
+`get_usage` shows `used_received`, `included_received`, `received_price_cents` and
+`received_free` — read it before telling someone a sync is free.
 
 The list pages the same way `list_invoices` does, with `limit` and `offset`.
 
@@ -32,9 +38,11 @@ document naming this company's CNPJ is wrong, which starts a problem for whoever
 ## Order
 
 1. `list_received_invoices` — find the document, read the issuer and the amount back. Each
-   row carries `access_key`, `issuer_name`, `issuer_tax_id`, `amount`, `issued_at` and
-   `manifestation`. **Check that last one first**: a row that already carries a position was
-   already answered, and filing again is a second declaration, not a correction.
+   row carries `access_key`, `issuer_name`, `issuer_tax_id`, `amount`, `issued_at`,
+   `manifestation` and `final_answer_due`. **Check the manifestation first**: a row that
+   already carries a position was already answered, and filing again is a second
+   declaration, not a correction. `final_answer_due` set means only an awareness (`210210`)
+   was filed and a conclusive answer is still owed.
 2. Ask which position the person means. Offer the four in plain words, not codes.
 3. `manifest_received_invoice`.
 
