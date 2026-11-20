@@ -35,6 +35,14 @@ Every row carries **two identifiers, and they are not interchangeable**:
 A rejected row has an `id` and **no access key**: the authorizer never assigned one. That is
 not missing data.
 
+## Counting, not finding
+
+"Quantas notas emiti este mês", "quanto faturei", "a rejeição está subindo?" — that is
+`invoice_stats`, not paging through `list_invoices`. It returns totals by document type and
+by status over everything, then issued and rejected counts and the amount for the last `days`
+(30 by default, up to 365) beside the `days` before them, and one row per day. Like every
+listing here, it covers the connection's environment only.
+
 ## Reporting
 
 **Neither `consult_invoice` nor `list_invoices` returns the environment.** They answer with
