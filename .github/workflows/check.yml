@@ -23,10 +23,7 @@ jobs:
           python-version: "3.13"
 
       - name: 🔍 Validate the manifests
-        run: |
-          python3 -c "import json; json.load(open('.codex-plugin/plugin.json'))"
-          python3 -c "import json; json.load(open('.app.json'))"
-          python3 -c "import json; json.load(open('.agents/plugins/marketplace.json'))"
+        run: python3 scripts/check_manifests.py
 
       - name: 📐 Compare the skills against the tools
         run: python3 scripts/check_skills.py

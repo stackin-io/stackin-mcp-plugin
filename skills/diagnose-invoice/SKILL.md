@@ -18,7 +18,21 @@ a message.
    `raw_response` exactly as they went over the wire. The tax authority's own rejection code
    — `209`, `539` and so on — lives inside `detail` and `raw_response`; `http_status` is the
    HTTP code of the transmission and is not it.
-3. Explain, then say what to change.
+3. `explain_rejection` with the same id. It reads that reply for someone who does not speak
+   SEFAZ: the `code`, the message **verbatim**, what it means, the steps to fix it, the field
+   at fault and, when there is one, a `suggested` value. It changes nothing, and a document
+   that is not rejected is refused (409).
+4. Explain, then say what to change.
+
+## The explanation
+
+- **A `suggested` value is a proposal, not a fix.** Read it back and confirm it with the
+  person before it goes into `reissue_invoice`; never apply it on your own.
+- **`transient: true` means the authority was down, not that the data is wrong.** Nothing on
+  the document needs changing: reissue it once the authorizer is back, and say so rather than
+  inventing a correction.
+- The explanation reads the authority's reply; the submissions are the reply itself. When the
+  two seem to disagree, quote the submission.
 
 ## Reading it
 

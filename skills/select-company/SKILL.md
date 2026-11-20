@@ -18,7 +18,10 @@ company out and that company is used.
 - `name`;
 - `permissions` — `invoice:read` consults and lists, `invoice:issue` issues and reissues,
   `invoice:write` corrects and manifests, `invoice:cancel` cancels and invalidates
-  numbering.
+  numbering, `webhook:manage` lists, creates and deletes webhooks and reads their
+  deliveries. `webhook:manage` is granted on demand, not at connect: the client asks the
+  person to authorize again the first time a webhook tool is used, so its absence from the
+  list is not a refusal.
 
 The listing also says the `environment` — `homologation` or `production` — and it is the
 same for every company in it.
@@ -31,7 +34,7 @@ it needs one. Do not ask the person for a UUID; this is where it comes from.
 Every tool that touches a company's documents takes `company_id` or `company_tax_id`.
 **One of them, never both** — they name the same company two ways, and both at once is
 refused before anything is sent. The lookups — `lookup_fiscal_code`, `search_fiscal_codes`,
-`list_fiscal_kinds` and `lookup_taxpayer` — read published tables, not a company's data, and
+`list_fiscal_kinds`, `search_cities` and `lookup_taxpayer` — read published tables, not a company's data, and
 take neither.
 
 `company_tax_id` is **the company using Stackin**, never the recipient and never a taxpayer

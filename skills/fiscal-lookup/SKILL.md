@@ -40,6 +40,21 @@ If nothing matches, say nothing matched. Do not offer the nearest row as though 
 the answer, and never fall back to a code you remember — that is the exact failure these
 tools exist to prevent.
 
+## A suggestion from the description
+
+`classify_item` takes what the item is, in the person's words, and the document type, and
+suggests an NCM, CFOP, CST/CSOSN, CEST or service code. Pass `recipient_state` when it is
+known: it decides an intrastate (5xxx) or interstate (6xxx) CFOP.
+
+- **It is a suggestion, whatever the confidence.** Show the primary candidate, its
+  `confidence` and the alternatives, and say it is a suggestion. A plausible wrong NCM is
+  authorized by the SEFAZ today and caught at an audit later.
+- Confirm the chosen code with `lookup_fiscal_code`, and put it on an item only after the
+  person accepts it.
+- When `missing_information` is not empty, ask the person exactly those questions and call
+  again with the answers in the matching arguments (`operation_scope`, `purpose`,
+  `contains_alcohol`, `service_city_code`, `tax_retained`). Do not answer them yourself.
+
 `metadata` carries whatever the family publishes beyond a code and a description, and it
 differs: `utrib` on an NCM, `ncm_code` on a CEST, `tax_type` on a CST, nothing at all on
 an ISS service. Report what is there instead of expecting a fixed shape.

@@ -1,0 +1,40 @@
+{
+  "name": "stackin",
+  "displayName": "Stackin",
+  "version": "1.3.0",
+  "description": "Issue and manage Brazilian fiscal documents from your AI client — NF-e and NFS-e, DANFE PDFs, rejections and cancellations, a saved client registry and several companies per connection — over the hosted Stackin MCP server.",
+  "author": {
+    "name": "Stackin",
+    "url": "https://app.stackin.io"
+  },
+  "homepage": "https://app.stackin.io",
+  "repository": "https://github.com/stackin-io/stackin-mcp-plugin",
+  "license": "MIT",
+  "keywords": [
+    "brazil",
+    "brasil",
+    "fiscal",
+    "nota-fiscal",
+    "invoice",
+    "nfe",
+    "nfse",
+    "danfe",
+    "danfse",
+    "ncm",
+    "cfop",
+    "cnpj",
+    "sefaz",
+    "mcp",
+    "model-context-protocol",
+    "claude-code",
+    "chatgpt",
+    "codex",
+    "cursor",
+    "tax",
+    "e-invoicing",
+    "clients"
+  ],
+  "logo": "assets/logo.png",
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}

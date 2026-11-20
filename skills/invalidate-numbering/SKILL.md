@@ -18,11 +18,15 @@ numbers, not two. One digit wrong and the company loses numbers it still needed,
 
 ## Order
 
-1. Confirm with the person which series and which range, and read it back as a count: "series
+1. `list_invalidations` — the ranges this company already declared, newest first, with the
+   series, the inclusive range, the reason, the SEFAZ status and its protocol. A range may
+   already be declared: a repeat is refused, and one that overlaps a past report means the
+   gap was already explained. Say so instead of declaring it again.
+2. Confirm with the person which series and which range, and read it back as a count: "series
    1, numbers 10 through 12 — three numbers, correct?"
-2. Confirm none of them was authorized. An authorized document is **cancelled**, never
+3. Confirm none of them was authorized. An authorized document is **cancelled**, never
    invalidated; `consult_invoice` settles it when there is any doubt.
-3. `invalidate_numbering`, with the reason in the person's own words — 15 to 255 characters,
+4. `invalidate_numbering`, with the reason in the person's own words — 15 to 255 characters,
    and it reaches the tax authority verbatim. The series is a string, not a number: `"1"`,
    and the range is refused before transmission if it runs backwards.
 
