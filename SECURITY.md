@@ -4,7 +4,7 @@
 
 Email **support@stackin.io** with "Security" in the subject. Include what you found, how to reproduce it and what an attacker could do with it. Please do not open a public issue for a vulnerability.
 
-We acknowledge reports within two business days and keep you posted until it is resolved.
+We reply to every report and keep you posted until it is resolved.
 
 ## Scope
 
