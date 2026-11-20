@@ -62,6 +62,36 @@ that refusal is the point, so do not "fix" it by dropping one of the two.
 Never multiply or divide to fill the other field. A rounded third of a price is a different
 document from the one the person described.
 
+## Before a company's first document
+
+`get_company_readiness` answers whether the company can issue right now. When `ready` is
+false, `missing` names the cause — `certificate`, `certificate_expired`,
+`certificate_unreadable`, `address` — and each one is fixed in the Stackin dashboard at
+[app.stackin.io](https://app.stackin.io), not here. Say which, and stop: issuing anyway only
+spends an attempt on a refusal. Call it again when issuing fails for a reason that is not the
+document's. It also gives the certificate's expiry, the tax regime (CRT), the state and the
+default série per document type.
+
+## The city
+
+Issuing resolves the IBGE `city_code` from the city and state by itself. Use `search_cities`
+only when a name matches more than one municipality, or when the API answered
+`CITY_NOT_FOUND`: it returns up to 20 with code, name and state. When more than one fits, ask
+which — never pick the first.
+
+## Optional fields, only when asked
+
+- **`discount`** — a discount on the whole document, in BRL. The API spreads it over the
+  lines in proportion to each line's amount; a per-line discount goes on the item instead.
+- **`issued_at`** — the emission date-time, ISO 8601 **with a timezone offset**
+  (`2026-11-15T09:30:00-03:00`); without one it is refused. Omitted means now. Send it only
+  when the person asks for another date: an NF-e takes at most 30 days back and 5 minutes
+  ahead, an NFS-e never a future one.
+- **`contingency`** — NF-e only. Sends through the state's contingency authorizer
+  (SVC-AN or SVC-RS) because the state SEFAZ itself is down. Only when the person says the
+  SEFAZ is unavailable — **never as a retry for a rejection**: a rejection is about the data,
+  and contingency does not change the data.
+
 ## Order
 
 1. `list_clients` — find the recipient, and take its id when it is saved.
