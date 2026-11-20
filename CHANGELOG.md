@@ -1,5 +1,34 @@
 # Changelog
 
+## v1.3.0 — 2026-11-20
+
+### Features
+- **skills:** manage-webhooks for list, create, delete and deliveries (#8)
+- **manifests:** Cursor plugin over the shared skills (#8)
+- **manifests:** Gemini CLI extension over the shared skills (#8)
+
+### Bug Fixes
+- **manifests:** point logoDark at logo-dark.png (#8)
+- **manifests:** restore the ChatGPT app id Codex reads (#8)
+- **skills:** drop pending from the list_invoices status filter (#6)
+
+### Docs
+- **manifests:** GEMINI.md lists manage-webhooks and the suggestion rules (#8)
+- **readme:** thirty-four tools, twelve skills, the v0.9.0 surface (#8)
+- **skills:** webhook:manage granted on demand, search_cities takes no company (#8)
+- **skills:** invoice_stats for counts, billing and rejection trend (#8)
+- **skills:** list_invalidations before declaring a range (#8)
+- **skills:** classify_item as a suggestion confirmed by the person (#8)
+- **skills:** readiness before the first document, search_cities, discount, issued_at, contingency (#8)
+- **skills:** explain_rejection after the submissions, suggested and transient (#8)
+- **readme:** install per client, five manifests, OAuth walked from Claude Code (#8)
+
+### Build
+- **manifests:** version 1.3.0 (#8)
+
+### CI
+- **manifests:** fail on an empty app id, a missing asset or a version split (#8)
+
 ## v1.2.0 — 2026-11-18
 
 ### Docs
