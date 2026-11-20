@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Twenty-four tools, eleven skills, one hosted server.** No SDK to install, no XML to sign, no
+**Thirty-four tools, twelve skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -34,6 +34,9 @@ certificate to juggle in the client.
 - 🔎 **Fiscal code lookup** — resolve an NCM, CFOP or CEST instead of guessing one, and confirm who a CNPJ belongs to
 - 👥 **Client registry** — save a recipient once and issue to it by id, instead of retyping it every month
 - 🏢 **Several companies on one connection** — list what the connection covers and pick the company per call
+- 🧭 **Rejection explained** in plain words, with the field at fault, and **item classification** suggested from a description, always confirmed before use
+- 📊 **Stats** — how many documents, how much billed, whether rejections are rising
+- 🔔 **Webhooks** — register, list and remove endpoints, and see whether deliveries arrive
 
 ## Table of contents
 
@@ -83,7 +86,7 @@ claude plugin marketplace add stackin-io/stackin-mcp-plugin
 claude plugin install stackin@stackin
 ```
 
-The plugin brings the eleven skills and points Claude Code at `https://mcp.stackin.io/mcp`.
+The plugin brings the twelve skills and points Claude Code at `https://mcp.stackin.io/mcp`.
 **There is nothing to configure**: the first tool call answers 401 with `WWW-Authenticate`,
 and Claude Code follows it — run `/mcp` in the session, authorize in the browser that opens,
 and the token is stored for you.
@@ -400,17 +403,18 @@ description cannot carry on its own.
 
 | Skill | What it carries |
 |---|---|
-| `issue-invoice` | Which document the situation needs, looking the recipient up in the client registry, and validating before issuing |
-| `consult-invoice` | Finding a document, and which identifier each operation takes |
+| `issue-invoice` | Which document the situation needs, checking the company is ready, looking the recipient up in the client registry, and validating before issuing |
+| `consult-invoice` | Finding a document, which identifier each operation takes, and counting with `invoice_stats` |
 | `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
-| `diagnose-invoice` | Reading the tax authority's own rejection code, and choosing between reissue and correction |
+| `diagnose-invoice` | Reading the tax authority's own rejection code, `explain_rejection`, and choosing between reissue and correction |
 | `correct-invoice` | Filing a correction letter against an authorized NF-e, and what a CC-e may not change |
-| `invalidate-numbering` | Declaring an NF-e numbering range reserved and never used |
+| `invalidate-numbering` | Checking what was already declared, then declaring an NF-e range reserved and never used |
 | `received-invoices` | Reading documents other companies issued against this one, and answering them |
-| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, instead of guessing one |
+| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, and treating a `classify_item` suggestion as one |
 | `taxpayer-lookup` | Confirming who a tax id belongs to, and why a 404 is not an invalid CNPJ |
 | `manage-clients` | Finding, saving and fixing the company's saved clients, and why a duplicate is refused |
 | `select-company` | Choosing which company a call acts for when one connection covers several |
+| `manage-webhooks` | Registering an endpoint once, never echoing its secret, removing one, and reading its deliveries |
 
 ## What is in this repository
 
@@ -430,7 +434,7 @@ server itself lives at `https://mcp.stackin.io/mcp` and speaks the Model Context
 | `gemini-extension.json` | Gemini CLI extension: the hosted server and `GEMINI.md` as context |
 | `GEMINI.md` | The skills and the rules every call follows, for Gemini CLI |
 | `server.json` | The MCP Registry entry |
-| `skills/` | The eleven workflows that need more than a tool description |
+| `skills/` | The twelve workflows that need more than a tool description |
 | `assets/` | Icon and logo |
 | `scripts/` | `check_skills.py` (skills against the live server), `check_manifests.py` (every manifest, the app id, one version) |
 
@@ -541,6 +545,13 @@ looks the recipient up before typing it.
 (asks the SEFAZ now; one-hour wait after catching up), `deactivate_client` and
 `reactivate_client`, and `list_invoices` filtering by `external_reference`.
 `list_clients` takes `inactive` instead of `include_inactive`. **Twenty-four tools now.**
+
+**Ten more on 2026-11-20** (server v0.9.0): `explain_rejection`, `classify_item`,
+`get_company_readiness`, `invoice_stats`, `search_cities`, `list_invalidations`,
+`list_webhooks`, `create_webhook`, `delete_webhook` and `list_webhook_deliveries`, and
+`issue_invoice` taking `discount`, `issued_at` and `contingency`. The webhook tools need
+`webhook:manage`, a step-up scope the client asks for on first use rather than at connect.
+**Thirty-four tools now**, twelve skills — `manage-webhooks` is the new one.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
