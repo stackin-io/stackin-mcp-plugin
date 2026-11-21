@@ -87,7 +87,7 @@ claude plugin marketplace add stackin-io/stackin-mcp-plugin
 claude plugin install stackin@stackin
 ```
 
-The plugin brings the twelve skills and points Claude Code at `https://mcp.stackin.io/mcp`.
+The plugin brings the thirteen skills and points Claude Code at `https://mcp.stackin.io/mcp`.
 **There is nothing to configure**: the first tool call answers 401 with `WWW-Authenticate`,
 and Claude Code follows it — run `/mcp` in the session, authorize in the browser that opens,
 and the token is stored for you.
@@ -436,7 +436,7 @@ server itself lives at `https://mcp.stackin.io/mcp` and speaks the Model Context
 | `gemini-extension.json` | Gemini CLI extension: the hosted server and `GEMINI.md` as context |
 | `GEMINI.md` | The skills and the rules every call follows, for Gemini CLI |
 | `server.json` | The MCP Registry entry |
-| `skills/` | The twelve workflows that need more than a tool description |
+| `skills/` | The thirteen workflows that need more than a tool description |
 | `assets/` | Icon and logo |
 | `scripts/` | `check_skills.py` (skills against the live server), `check_manifests.py` (every manifest, the app id, one version) |
 
