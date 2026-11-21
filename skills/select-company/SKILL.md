@@ -18,7 +18,8 @@ company out and that company is used.
 - `name`;
 - `permissions` — `invoice:read` consults and lists, `invoice:issue` issues and reissues,
   `invoice:write` corrects and manifests, `invoice:cancel` cancels and invalidates
-  numbering, `webhook:manage` lists, creates and deletes webhooks and reads their
+  numbering, `company:write` completes the company's own address and fiscal fields
+  (`update_company`), `webhook:manage` lists, creates and deletes webhooks and reads their
   deliveries. `webhook:manage` is granted on demand, not at connect: the client asks the
   person to authorize again the first time a webhook tool is used, so its absence from the
   list is not a refusal.
