@@ -66,11 +66,16 @@ document from the one the person described.
 
 `get_company_readiness` answers whether the company can issue right now. When `ready` is
 false, `missing` names the cause — `certificate`, `certificate_expired`,
-`certificate_unreadable`, `address` — and each one is fixed in the Stackin dashboard at
-[app.stackin.io](https://app.stackin.io), not here. Say which, and stop: issuing anyway only
-spends an attempt on a refusal. Call it again when issuing fails for a reason that is not the
-document's. It also gives the certificate's expiry, the tax regime (CRT), the state and the
-default série per document type.
+`certificate_unreadable`, `address`, `state_registration`, `plan` — and `by_document_type`
+names the fields at fault per document type. Do not issue anyway: that only spends an attempt
+on a refusal. An `address` or `state_registration` is completed here with `update_company`,
+after the person confirms it; the rest only in the dashboard, at `fix_url`. The whole path —
+readiness, completing the company, a test in homologation, then production — is the
+`first-invoice` skill.
+
+Ask it once, and again only when something changed or issuing fails for a reason that is not
+the document's — never in a loop. It also gives the certificate's expiry, the tax regime
+(CRT), the state and the default série per document type.
 
 ## The city
 

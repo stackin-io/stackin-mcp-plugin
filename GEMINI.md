@@ -10,6 +10,7 @@ tool description cannot: the order of operations or a fiscal rule.
 | Skill | Use it to |
 |---|---|
 | `issue-invoice` | Issue an NF-e or NFS-e, checking the company is ready and the data before it reaches the tax authority |
+| `first-invoice` | Take a new company to its first document: readiness, `update_company`, a homologation test, then production |
 | `consult-invoice` | Find a document and report its state; count and compare with `invoice_stats` |
 | `diagnose-invoice` | Explain a rejection with `explain_rejection` and the authority's own answer, and what has to change |
 | `cancel-invoice` | Cancel an authorized document, or file a correction letter when that is what is needed |
@@ -37,3 +38,6 @@ tool description cannot: the order of operations or a fiscal rule.
   document only after the user accepts it.
 - `contingency` on `issue_invoice` is for a SEFAZ that is down, never a retry for a rejection.
 - Webhook tools need `webhook:manage`, asked for on first use. Never repeat a webhook secret.
+- Ask `get_company_readiness` once per change, never in a loop. Write the company's address
+  with `update_company` only after the user confirms it; fiscal fields only as the user states
+  them.
