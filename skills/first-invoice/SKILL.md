@@ -29,12 +29,19 @@ What blocks decides who fixes it.
 
 - **`address`** — fixed here.
   1. `lookup_taxpayer` with the company's own CNPJ (the `tax_id` readiness answered). The
-     registry holds the address the company registered.
-  2. Show the person that address — street, number, neighborhood, city and CEP — and ask
+     registry holds the address the company registered: `street_type` + `street`, `number`
+     and `neighborhood` under `metadata.address`, the CEP as `postal_code`.
+  2. The city needs one more hop. The row's `city_code` is the Receita's code (4 digits,
+     e.g. `7107` for São Paulo), **not** the IBGE code, and the row has no city name. Get the
+     name with `lookup_fiscal_code(kind="city", code=<city_code>)`. Never copy or pad
+     `city_code` into `municipality_code`.
+  3. Show the person that address — street, number, neighborhood, city and CEP — and ask
      whether it is where the company issues from.
-  3. Only after they confirm, `update_company` with those fields. `municipality_code` is the
-     7-digit IBGE code; `search_cities` finds it from the name when the registry did not give
-     it. Leave out what neither the registry nor the person gave — never invent a field.
+  4. Only after they confirm, `update_company` with those fields, the city as
+     `municipality_name`: the IBGE code is found from it in the company's state. Sending
+     `municipality_code` instead is fine only with the 7-digit IBGE code from
+     `search_cities`. Leave out what neither the registry nor the person gave — never
+     invent a field.
 - **`state_registration`** (NF-e) — ask the person for the IE (digits, or `ISENTO`), then
   `update_company` with `state_registration`. Never take it from anywhere else.
 - **`certificate`, `certificate_expired`, `certificate_unreadable`, `plan`** — only the
@@ -52,8 +59,9 @@ there is no need to ask `get_company_readiness` again.
 ### When `update_company` is refused
 
 A connection made before company settings existed does not have `company:write`. The refusal
-says so: tell the person to **reconnect Stackin to allow company settings** — disconnect the
-`stackin` connector, connect again and approve company settings on the consent screen — and,
+says so: tell the person to **reconnect Stackin to allow company settings** — approve it when
+the client asks for it, or disconnect the `stackin` connector, connect again and approve
+company settings on the consent screen — and,
 if they would rather not, give them `fix_url` to fill the address in the dashboard. Retrying
 does not help, and neither does another readiness call; wait for them to say they did one of
 the two.
