@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Thirty-four tools, twelve skills, one hosted server.** No SDK to install, no XML to sign, no
+**Thirty-five tools, thirteen skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -34,6 +34,7 @@ certificate to juggle in the client.
 - 🔎 **Fiscal code lookup** — resolve an NCM, CFOP or CEST instead of guessing one, and confirm who a CNPJ belongs to
 - 👥 **Client registry** — save a recipient once and issue to it by id, instead of retyping it every month
 - 🏢 **Several companies on one connection** — list what the connection covers and pick the company per call
+- 🚀 **First invoice from the conversation** — see what blocks the company, complete its address from the registry, test in homologation, then go to production
 - 🧭 **Rejection explained** in plain words, with the field at fault, and **item classification** suggested from a description, always confirmed before use
 - 📊 **Stats** — how many documents, how much billed, whether rejections are rising
 - 🔔 **Webhooks** — register, list and remove endpoints, and see whether deliveries arrive
@@ -404,6 +405,7 @@ description cannot carry on its own.
 | Skill | What it carries |
 |---|---|
 | `issue-invoice` | Which document the situation needs, checking the company is ready, looking the recipient up in the client registry, and validating before issuing |
+| `first-invoice` | From "not ready" to the first real document: readiness once, completing the company with `update_company`, a test in homologation, then production |
 | `consult-invoice` | Finding a document, which identifier each operation takes, and counting with `invoice_stats` |
 | `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
 | `diagnose-invoice` | Reading the tax authority's own rejection code, `explain_rejection`, and choosing between reissue and correction |
@@ -552,6 +554,15 @@ looks the recipient up before typing it.
 `issue_invoice` taking `discount`, `issued_at` and `contingency`. The webhook tools need
 `webhook:manage`, a step-up scope the client asks for on first use rather than at connect.
 **Thirty-four tools now**, twelve skills — `manage-webhooks` is the new one.
+
+**`update_company`, stackin-mcp#45.** A user who works only in the conversation could not
+finish the company setup: readiness said `address` was missing, nothing could write it, and
+the model asked again nine times in twelve minutes. `update_company` writes the company's own
+address (read from `lookup_taxpayer` and confirmed by the person first) and, when the person
+states them, its fiscal fields, under the new `company:write` scope — a connection made before
+it is told to reconnect Stackin to allow company settings. `get_company_readiness` now names
+the fields per document type and the dashboard `fix_url`. **Thirty-five tools now**, thirteen
+skills — `first-invoice` is the new one.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
