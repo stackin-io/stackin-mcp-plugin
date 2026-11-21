@@ -1,5 +1,29 @@
 # Changelog
 
+## v1.4.0 — 2026-11-21
+
+### Features
+- **skills:** first-invoice from readiness to production (stackin-mcp#45)
+
+### Bug Fixes
+- **skills:** first-invoice resolves the registry city to a name, not an IBGE code (stackin-mcp#45)
+
+### Docs
+- **readme:** thirteen skills in the install and layout sections (stackin-mcp#45)
+- **manifests:** GEMINI.md lists first-invoice and the readiness rule (stackin-mcp#45)
+- **readme:** thirty-five tools, thirteen skills, update_company (stackin-mcp#45)
+- **skills:** company:write in the permissions select-company reads (stackin-mcp#45)
+- **skills:** issue-invoice completes the company with update_company, readiness once (stackin-mcp#45)
+- drop the response-time promise from the security policy
+- add a security policy with a reporting contact (#11)
+
+### Build
+- **manifests:** version 1.4.0 (stackin-mcp#45)
+
+### Chores
+- **gitignore:** block certificate, key and .env files (stackin-io/devops#47)
+- **assets:** add a 400x400 logo for marketplace listings
+
 ## v1.3.0 — 2026-11-20
 
 ### Features
