@@ -412,7 +412,7 @@ description cannot carry on its own.
 | `correct-invoice` | Filing a correction letter against an authorized NF-e, and what a CC-e may not change |
 | `invalidate-numbering` | Checking what was already declared, then declaring an NF-e range reserved and never used |
 | `received-invoices` | Reading documents other companies issued against this one, and answering them |
-| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, and treating a `classify_item` suggestion as one |
+| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, and treating a `classify_item` suggestion as one, and simulating IBS/CBS with `calculate_ibs_cbs` |
 | `taxpayer-lookup` | Confirming who a tax id belongs to, and why a 404 is not an invalid CNPJ |
 | `manage-clients` | Finding, saving and fixing the company's saved clients, and why a duplicate is refused |
 | `select-company` | Choosing which company a call acts for when one connection covers several |
