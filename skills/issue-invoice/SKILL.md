@@ -62,6 +62,25 @@ that refusal is the point, so do not "fix" it by dropping one of the two.
 Never multiply or divide to fill the other field. A rounded third of a price is a different
 document from the one the person described.
 
+## The lines
+
+Look a product or service up with **`list_items`** before typing it. When it is in the
+company's catalog, put its id on the line as **`item_id`**: the description, the price and the
+fiscal codes (NCM, CFOP, CEST, GTIN, the tax situation, the service code) come from the
+catalog, and what the line sends itself wins. Send only `item_id` and the `quantity`, then
+`amount` or `unit_price` only when this document's price differs.
+
+- **One match** — read the description and the price back, then use its id.
+- **Several** — ask which one. Two similar products are two different codes.
+- **None** — type the line as before; classify the NCM with `fiscal-lookup`, never guess it.
+
+An item with no `ncm` and `cfop` still fails on an NF-e, with the same message as a typed
+line. A service on an NF-e, or a product on an NFS-e, is refused (`ITEM_KIND_MISMATCH`), and
+so is a deactivated item (`ITEM_INACTIVE`). A tax situation that carries an amount needs the
+line's own `tax` (`ITEM_TAX_REQUIRED`), and one that does not fit the company's tax regime or
+an export operation is refused before it reaches the SEFAZ (`ITEM_TAX_REGIME_MISMATCH`). Saving or fixing an item without issuing anything is
+the `manage-items` skill.
+
 ## Before a company's first document
 
 `get_company_readiness` answers whether the company can issue right now. When `ready` is
@@ -99,11 +118,12 @@ which — never pick the first.
 
 ## Order
 
-1. `list_clients` — find the recipient, and take its id when it is saved.
+1. `list_clients` — find the recipient, and take its id when it is saved. `list_items` —
+   the same for each line.
 2. `validate_invoice_payload` — checks NCM, CFOP, amounts and the address without sending
    anything. Nothing is issued, so it is safe while the data is still being assembled.
 3. Fix what it reports.
-4. `issue_invoice`, with `client_id` when step 1 found the client.
+4. `issue_invoice`, with `client_id` and `item_id` when step 1 found them.
 5. Report the outcome: the status, the access key, and — when the authorizer refused — its
    own message.
 

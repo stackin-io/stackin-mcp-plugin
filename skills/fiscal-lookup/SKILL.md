@@ -50,7 +50,8 @@ known: it decides an intrastate (5xxx) or interstate (6xxx) CFOP.
   `confidence` and the alternatives, and say it is a suggestion. A plausible wrong NCM is
   authorized by the SEFAZ today and caught at an audit later.
 - Confirm the chosen code with `lookup_fiscal_code`, and put it on an item only after the
-  person accepts it.
+  person accepts it. A code the person will reuse is kept with `save_item`; see
+  `manage-items`.
 - When `missing_information` is not empty, ask the person exactly those questions and call
   again with the answers in the matching arguments (`operation_scope`, `purpose`,
   `contains_alcohol`, `service_city_code`, `tax_retained`). Do not answer them yourself.
