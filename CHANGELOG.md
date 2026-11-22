@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.5.0 — 2026-11-22
+
+### Features
+- **skills:** fiscal-lookup simulates IBS/CBS with calculate_ibs_cbs (stackin-mcp#57)
+- **skills:** manage-items, and issue-invoice and fiscal-lookup use the catalog (stackin-io/stackin-api#642)
+
+### Docs
+- **readme:** forty-one tools, items catalog and IBS/CBS simulation live (stackin-mcp#57)
+- **readme:** fiscal-lookup row names calculate_ibs_cbs (stackin-mcp#57)
+- **readme:** forty tools, fourteen skills, the items catalog (stackin-io/stackin-api#642)
+
+### Build
+- **manifests:** version 1.5.0 (stackin-mcp#57)
+
+### Chores
+- merge items catalog skills (#15) into feature/57
+
 ## v1.4.0 — 2026-11-21
 
 ### Features
