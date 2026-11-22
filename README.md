@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Forty tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
+**Forty-one tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -565,11 +565,15 @@ it is told to reconnect Stackin to allow company settings. `get_company_readines
 the fields per document type and the dashboard `fix_url`. **Thirty-five tools now**, thirteen
 skills — `first-invoice` is the new one.
 
-**The items catalog, stackin-api#642** (server release pending). `list_items`, `get_item`,
+**The items catalog, stackin-api#642** (live). `list_items`, `get_item`,
 `save_item`, `deactivate_item` and `reactivate_item`, and `issue_invoice` taking `item_id` on
 each line: the catalog fills the description, the price and the fiscal codes the line leaves
 out. Saving without an id is an upsert by `external_reference`, else `code`. **Forty tools
 now**, fourteen skills — `manage-items` is the new one.
+
+**The IBS/CBS simulation, stackin-mcp v0.12.0.** `calculate_ibs_cbs` simulates IBS/CBS per
+item and in total, read-only, under `invoice:read`, and is covered by `fiscal-lookup`.
+**Forty-one tools now**, fourteen skills.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
