@@ -17,9 +17,10 @@ tool description cannot: the order of operations or a fiscal rule.
 | `correct-invoice` | File a correction letter (CC-e) against an authorized NF-e |
 | `invalidate-numbering` | Check `list_invalidations`, then declare a reserved, never-used NF-e range |
 | `received-invoices` | Read NF-e other companies issued against this one, and file the company's position |
-| `fiscal-lookup` | Resolve an NCM, CFOP or CEST before it goes on a document; `classify_item` only suggests |
+| `fiscal-lookup` | Resolve an NCM, CFOP or CEST before it goes on a document; `classify_item` only suggests; `calculate_ibs_cbs` simulates IBS/CBS |
 | `taxpayer-lookup` | Confirm who a tax id belongs to before invoicing them |
 | `manage-clients` | Find, read, save and fix the company's saved clients |
+| `manage-items` | Find, read, save and fix the company's catalog of products and services |
 | `select-company` | Pick which company a call acts for when one connection covers several |
 | `manage-webhooks` | Register, list and remove webhook endpoints, and check whether deliveries arrive |
 

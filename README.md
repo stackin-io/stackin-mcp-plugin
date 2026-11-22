@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Thirty-five tools, thirteen skills, one hosted server.** No SDK to install, no XML to sign, no
+**Forty-one tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -87,7 +87,7 @@ claude plugin marketplace add stackin-io/stackin-mcp-plugin
 claude plugin install stackin@stackin
 ```
 
-The plugin brings the thirteen skills and points Claude Code at `https://mcp.stackin.io/mcp`.
+The plugin brings the fourteen skills and points Claude Code at `https://mcp.stackin.io/mcp`.
 **There is nothing to configure**: the first tool call answers 401 with `WWW-Authenticate`,
 and Claude Code follows it — run `/mcp` in the session, authorize in the browser that opens,
 and the token is stored for you.
@@ -404,7 +404,7 @@ description cannot carry on its own.
 
 | Skill | What it carries |
 |---|---|
-| `issue-invoice` | Which document the situation needs, checking the company is ready, looking the recipient up in the client registry, and validating before issuing |
+| `issue-invoice` | Which document the situation needs, checking the company is ready, looking the recipient up in the client registry and each line in the catalog, and validating before issuing |
 | `first-invoice` | From "not ready" to the first real document: readiness once, completing the company with `update_company`, a test in homologation, then production |
 | `consult-invoice` | Finding a document, which identifier each operation takes, and counting with `invoice_stats` |
 | `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
@@ -412,9 +412,10 @@ description cannot carry on its own.
 | `correct-invoice` | Filing a correction letter against an authorized NF-e, and what a CC-e may not change |
 | `invalidate-numbering` | Checking what was already declared, then declaring an NF-e range reserved and never used |
 | `received-invoices` | Reading documents other companies issued against this one, and answering them |
-| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, and treating a `classify_item` suggestion as one |
+| `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, and treating a `classify_item` suggestion as one, and simulating IBS/CBS with `calculate_ibs_cbs` |
 | `taxpayer-lookup` | Confirming who a tax id belongs to, and why a 404 is not an invalid CNPJ |
 | `manage-clients` | Finding, saving and fixing the company's saved clients, and why a duplicate is refused |
+| `manage-items` | Finding, saving and fixing the company's catalog of products and services, and issuing from it with `item_id` |
 | `select-company` | Choosing which company a call acts for when one connection covers several |
 | `manage-webhooks` | Registering an endpoint once, never echoing its secret, removing one, and reading its deliveries |
 
@@ -436,7 +437,7 @@ server itself lives at `https://mcp.stackin.io/mcp` and speaks the Model Context
 | `gemini-extension.json` | Gemini CLI extension: the hosted server and `GEMINI.md` as context |
 | `GEMINI.md` | The skills and the rules every call follows, for Gemini CLI |
 | `server.json` | The MCP Registry entry |
-| `skills/` | The thirteen workflows that need more than a tool description |
+| `skills/` | The fourteen workflows that need more than a tool description |
 | `assets/` | Icon and logo |
 | `scripts/` | `check_skills.py` (skills against the live server), `check_manifests.py` (every manifest, the app id, one version) |
 
@@ -563,6 +564,16 @@ states them, its fiscal fields, under the new `company:write` scope — a connec
 it is told to reconnect Stackin to allow company settings. `get_company_readiness` now names
 the fields per document type and the dashboard `fix_url`. **Thirty-five tools now**, thirteen
 skills — `first-invoice` is the new one.
+
+**The items catalog, stackin-api#642** (live). `list_items`, `get_item`,
+`save_item`, `deactivate_item` and `reactivate_item`, and `issue_invoice` taking `item_id` on
+each line: the catalog fills the description, the price and the fiscal codes the line leaves
+out. Saving without an id is an upsert by `external_reference`, else `code`. **Forty tools
+now**, fourteen skills — `manage-items` is the new one.
+
+**The IBS/CBS simulation, stackin-mcp v0.12.0.** `calculate_ibs_cbs` simulates IBS/CBS per
+item and in total, read-only, under `invoice:read`, and is covered by `fiscal-lookup`.
+**Forty-one tools now**, fourteen skills.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
