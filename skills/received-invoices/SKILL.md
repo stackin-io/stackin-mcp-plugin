@@ -23,6 +23,15 @@ that it is too soon and says when to try; do not retry in a loop.
 
 The list pages the same way `list_invoices` does, with `limit` and `offset`.
 
+## Downloading the full XML
+
+`get_received_invoice_xml` with the access key returns the stored `procNFe`. Downloading is
+not charged — a received document is billed once, when it is stored. Until the full document
+has arrived it answers that only the summary is there: the SEFAZ sends the full XML only after
+a manifestation (`210210` or `210200`), on a later read (the scheduled one, or
+`sync_received_invoices`). Offer that path; never file a manifestation just to get the XML
+without the person choosing the position.
+
 ## The four positions, and what each one claims
 
 | Code | Meaning | Weight |

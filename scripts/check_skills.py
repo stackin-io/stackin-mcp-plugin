@@ -37,7 +37,7 @@ def live_tools() -> set[str]:
 def mentioned_tools() -> dict[str, set[str]]:
     found: dict[str, set[str]] = {}
     for path in sorted(SKILLS.glob("*/SKILL.md")):
-        names = set(re.findall(r"`?\b([a-z]+(?:_[a-z]+)+)\b`?", path.read_text()))
+        names = set(re.findall(r"`?\b([a-z]+(?:_[a-z]+)+)\b(?!\.[a-z])`?", path.read_text()))
         found[path.parent.name] = names
     return found
 

@@ -56,8 +56,9 @@ a message.
 | Authorized NFS-e, wording wrong | Cancel and issue again — there is no correction letter for services |
 | Authorized, values wrong | Cancel and issue again |
 
-Before reissuing, `validate_invoice_payload` on the corrected data — it catches a malformed
-NCM or CFOP without spending another attempt.
+Before reissuing, `validate_invoice_payload` on the corrected data — it runs every check
+the issuance runs before the authority, so a rule the data still breaks shows up without
+spending another attempt.
 
 ## What this cannot tell you
 
