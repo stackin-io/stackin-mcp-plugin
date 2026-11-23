@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.6.0 — 2026-11-22
+
+### Features
+- **skills:** received XML download, DPS consult, real validation and received_invoice webhooks (#17)
+
+### Bug Fixes
+- **scripts:** check_skills ignores dotted webhook event names (#17)
+
+### Docs
+- **skills:** a company blocker carries no field (#17)
+- **readme:** forty-two tools, received XML and DPS consult live (#17)
+
+### Build
+- **manifests:** version 1.6.0 (#17)
+
 ## v1.5.0 — 2026-11-22
 
 ### Features
