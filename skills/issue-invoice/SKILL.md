@@ -120,8 +120,11 @@ which — never pick the first.
 
 1. `list_clients` — find the recipient, and take its id when it is saved. `list_items` —
    the same for each line.
-2. `validate_invoice_payload` — checks NCM, CFOP, amounts and the address without sending
-   anything. Nothing is issued, so it is safe while the data is still being assembled.
+2. `validate_invoice_payload` — runs the same checks the issuance runs before the
+   authority (the company's certificate, address and plan, NCM, CEST, IBS/CBS, amounts and
+   the layout rules) without sending anything: no number is taken, nothing is stored or
+   charged. Each refusal names its `field`. The authority can still refuse what passes, on
+   what only it knows (the recipient's registration, a number already used).
 3. Fix what it reports.
 4. `issue_invoice`, with `client_id` and `item_id` when step 1 found them.
 5. Report the outcome: the status, the access key, and — when the authorizer refused — its

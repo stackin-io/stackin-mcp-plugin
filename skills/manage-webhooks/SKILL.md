@@ -33,8 +33,11 @@ there, say so instead of registering it again.
 - **a secret the person chose**, 16 to 255 characters; every delivery is signed with it.
   Do not generate one for them, and **never repeat it back** — not in the confirmation, not
   in the summary. It is not shown again by any tool.
-- `events` only when the person wants fewer than all four (`invoice.authorized`,
-  `invoice.rejected`, `invoice.cancelled`, `invoice.corrected`); omitted means every one.
+- `events` only when the person wants fewer than all six (`invoice.authorized`,
+  `invoice.rejected`, `invoice.cancelled`, `invoice.corrected`, `received_invoice.stored` —
+  an NF-e issued against the company was stored, summary or full, the first time —
+  and `received_invoice.full_document` — its full XML arrived after a manifestation);
+  omitted means every one, including events added later.
 
 ## Removing one
 

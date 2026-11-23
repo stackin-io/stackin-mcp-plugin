@@ -12,6 +12,15 @@ Read-only. Nothing here changes a document.
 `consult_invoice` with the key and the document type. It answers with the current status
 straight from the tax authority.
 
+## When an NFS-e issuance came back `OUTCOME_UNKNOWN`
+
+The document was sent and the authority never answered, so it may exist. The error carries a
+`document_id` — for an NFS-e, the DPS id. `consult_invoice` with `dps_id` (instead of
+`access_key`) asks the national authority whether it issued that note: found means it exists,
+with its own access key and status (`cancelled` included); not found means nothing was issued
+and it is safe to issue again. For an NF-e the `document_id` is the access key. Never issue
+again before this answer.
+
 ## When they do not
 
 `list_invoices` — filters by document type and status (`authorized`, `rejected`,
