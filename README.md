@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Forty-one tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
+**Forty-two tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -406,12 +406,12 @@ description cannot carry on its own.
 |---|---|
 | `issue-invoice` | Which document the situation needs, checking the company is ready, looking the recipient up in the client registry and each line in the catalog, and validating before issuing |
 | `first-invoice` | From "not ready" to the first real document: readiness once, completing the company with `update_company`, a test in homologation, then production |
-| `consult-invoice` | Finding a document, which identifier each operation takes, and counting with `invoice_stats` |
+| `consult-invoice` | Finding a document, which identifier each operation takes, settling an `OUTCOME_UNKNOWN` NFS-e by its DPS id, and counting with `invoice_stats` |
 | `cancel-invoice` | Confirming before an irreversible act, and when a correction letter is the right tool instead |
 | `diagnose-invoice` | Reading the tax authority's own rejection code, `explain_rejection`, and choosing between reissue and correction |
 | `correct-invoice` | Filing a correction letter against an authorized NF-e, and what a CC-e may not change |
 | `invalidate-numbering` | Checking what was already declared, then declaring an NF-e range reserved and never used |
-| `received-invoices` | Reading documents other companies issued against this one, and answering them |
+| `received-invoices` | Reading documents other companies issued against this one, downloading their full XML, and answering them |
 | `fiscal-lookup` | Resolving an NCM, CFOP or CEST before issuing, and treating a `classify_item` suggestion as one, and simulating IBS/CBS with `calculate_ibs_cbs` |
 | `taxpayer-lookup` | Confirming who a tax id belongs to, and why a 404 is not an invalid CNPJ |
 | `manage-clients` | Finding, saving and fixing the company's saved clients, and why a duplicate is refused |
@@ -574,6 +574,13 @@ now**, fourteen skills — `manage-items` is the new one.
 **The IBS/CBS simulation, stackin-mcp v0.12.0.** `calculate_ibs_cbs` simulates IBS/CBS per
 item and in total, read-only, under `invoice:read`, and is covered by `fiscal-lookup`.
 **Forty-one tools now**, fourteen skills.
+
+**Received XML, DPS consult and the real validation, stackin-api v0.46.0.**
+`get_received_invoice_xml` downloads a received NF-e's `procNFe` once the full document has
+arrived; `consult_invoice` takes a `dps_id` to settle an NFS-e `OUTCOME_UNKNOWN`;
+`validate_invoice_payload` runs the API's own pre-authority rules; `create_webhook` takes
+`received_invoice.stored` and `received_invoice.full_document`. **Forty-two tools now**,
+fourteen skills.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
