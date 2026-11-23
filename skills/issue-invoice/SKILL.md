@@ -123,7 +123,8 @@ which — never pick the first.
 2. `validate_invoice_payload` — runs the same checks the issuance runs before the
    authority (the company's certificate, address and plan, NCM, CEST, IBS/CBS, amounts and
    the layout rules) without sending anything: no number is taken, nothing is stored or
-   charged. Each refusal names its `field`. The authority can still refuse what passes, on
+   charged. Each refusal carries a `code` and, when a value in the request is at fault,
+   its `field`. The authority can still refuse what passes, on
    what only it knows (the recipient's registration, a number already used).
 3. Fix what it reports.
 4. `issue_invoice`, with `client_id` and `item_id` when step 1 found them.
