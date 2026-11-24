@@ -22,7 +22,7 @@ Ask in plain language — *"issue an NFS-e for this service"*, *"why was my last
 *"cancel invoice 1042 and tell me the reason code"* — and the model does it through Stackin,
 against SEFAZ and the municipal NFS-e webservices.
 
-**Forty-two tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
+**Forty-three tools, fourteen skills, one hosted server.** No SDK to install, no XML to sign, no
 certificate to juggle in the client.
 
 - 🧾 **NF-e** (goods) and **NFS-e** (services) — issue, consult, cancel
@@ -581,6 +581,13 @@ arrived; `consult_invoice` takes a `dps_id` to settle an NFS-e `OUTCOME_UNKNOWN`
 `validate_invoice_payload` runs the API's own pre-authority rules; `create_webhook` takes
 `received_invoice.stored` and `received_invoice.full_document`. **Forty-two tools now**,
 fourteen skills.
+
+**The NFS-e DPS fields, stackin-api v0.55.0 and stackin-mcp v0.18.0.** `issue_invoice` and
+`validate_invoice_payload` take the `nfse` group, the line's `nbs`, `conditional_discount`,
+`municipal_service_code` and `internal_code`, the recipient's municipal registration,
+complement and abroad fields; an NFS-e carries one line and an MEI cannot send the fields the
+API refuses with `*_NOT_FOR_MEI`. `suggest_nbs` lists the NBS candidates for a service code,
+covered by `fiscal-lookup`. **Forty-three tools now**, fourteen skills.
 
 **The connector caches the tool list from the moment it was scanned.** The app was authorized
 at 10:48 on 2026-09-06 and the NFS-e restriction went live at 12:00, so ChatGPT kept
