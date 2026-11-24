@@ -3,7 +3,7 @@
   "name": "io.github.stackin-io/stackin",
   "title": "Stackin",
   "description": "Issue and manage Brazilian fiscal documents: NF-e for goods, NFS-e for services.",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "websiteUrl": "https://docs.stackin.io/mcp",
   "repository": {
     "url": "https://github.com/stackin-io/stackin-mcp-plugin",

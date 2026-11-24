@@ -1,6 +1,6 @@
 {
   "name": "stackin",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Issue and manage Brazilian fiscal documents (NF-e and NFS-e) over the hosted Stackin MCP server.",
   "contextFileName": "GEMINI.md",
   "mcpServers": {
