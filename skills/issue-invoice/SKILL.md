@@ -35,7 +35,8 @@ takes, only when the person gave them:
   `foreign_id_missing_reason`.
 - **The `nfse` group** — `competence_date`, `service_city_code`, `iss`, `federal`,
   `deductions`, `approximate_taxes`, `substitution`, `construction`, `event`, `references`,
-  `intermediary`, `foreign_trade`. Its full shape is the `stackin://schemas/nfse` resource.
+  `provider` (`caepf`, `phone`, `email`), `recipient_caepf`, `intermediary`, `foreign_trade`.
+  Its full shape is the `stackin://schemas/nfse` resource.
 
 An **MEI** cannot send `federal`, `deductions`, `iss.rate`, `iss.municipal_benefit`,
 `approximate_taxes.simples_percent` or a `municipal_service_code`: the API refuses with the
