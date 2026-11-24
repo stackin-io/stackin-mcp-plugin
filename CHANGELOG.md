@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.7.0 — 2026-11-24
+
+### Features
+- **skills:** NFS-e DPS fields, MEI limits and suggest_nbs (stackin-mcp#65)
+
+### Docs
+- **readme:** forty-three tools, NFS-e DPS fields and suggest_nbs
+
+### Build
+- **manifests:** version 1.7.0
+
 ## v1.6.0 — 2026-11-22
 
 ### Features
