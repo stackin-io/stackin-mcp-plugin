@@ -24,6 +24,25 @@ any field.
   Two more are NFS-e only: `service_discount` for an unconditional discount, and
   `tax_retained` when the ISSQN is withheld by the buyer.
 
+An NFS-e carries **one line**: more is refused with `NFSE_SINGLE_ITEM`. Beyond that it
+takes, only when the person gave them:
+
+- **On the line** — `nbs` (see `fiscal-lookup`: `suggest_nbs` lists candidates, the person
+  picks), `conditional_discount`, `municipal_service_code` (cTribMun, three digits) and
+  `internal_code`.
+- **On the recipient** — `recipient_municipal_registration`, `recipient_address.complement`,
+  and for a recipient abroad `country_iso2`, `postal_code`, `province` plus `foreign_id` or
+  `foreign_id_missing_reason`.
+- **The `nfse` group** — `competence_date`, `service_city_code`, `iss`, `federal`,
+  `deductions`, `approximate_taxes`, `substitution`, `construction`, `event`, `references`,
+  `intermediary`, `foreign_trade`. Its full shape is the `stackin://schemas/nfse` resource.
+
+An **MEI** cannot send `federal`, `deductions`, `iss.rate`, `iss.municipal_benefit`,
+`approximate_taxes.simples_percent` or a `municipal_service_code`: the API refuses with the
+matching `*_NOT_FOR_MEI` code. Do not drop the field to make it pass without telling the
+person. The result's `warnings` (`APPROXIMATE_TAXES_MISSING`, `IBS_CBS_RECOMMENDED` and the
+other `*_RECOMMENDED`) go back to the person as they come.
+
 Asking which one is cheaper than issuing the wrong one. A service invoiced as NF-e is not a
 formatting mistake, it is the wrong fiscal document.
 

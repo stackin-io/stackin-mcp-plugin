@@ -60,6 +60,15 @@ known: it decides an intrastate (5xxx) or interstate (6xxx) CFOP.
 differs: `utrib` on an NCM, `ncm_code` on a CEST, `tax_type` on a CST, nothing at all on
 an ISS service. Report what is there instead of expecting a fixed shape.
 
+## The NBS of a service
+
+`suggest_nbs` takes an NFS-e service code (`1.07`, `01.07.00` or `010700`) and lists the NBS
+codes Anexo VIII pairs with it, each with the `operation_indicator` (cIndOp) and
+`ibs_cbs_classification` (cClassTrib) the annex lists. They are suggestions: show them, let
+the person pick one, and only then put it on the item as `nbs`, with the other two in the
+item's `ibs_cbs` group when the person also confirms them. An empty list means the annex
+lists none for that code, not that the code is wrong.
+
 ## Simulating IBS/CBS
 
 `calculate_ibs_cbs` shows what the IBS and CBS would come to for a set of lines, before any
