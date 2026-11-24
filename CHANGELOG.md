@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.8.0 — 2026-11-24
+
+### Features
+- **skills:** nfse provider and recipient_caepf in issue-invoice
+
+### Build
+- **manifests:** version 1.8.0
+
 ## v1.7.0 — 2026-11-24
 
 ### Features
