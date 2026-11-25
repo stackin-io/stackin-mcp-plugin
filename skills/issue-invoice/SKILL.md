@@ -135,6 +135,10 @@ which — never pick the first.
   (SVC-AN or SVC-RS) because the state SEFAZ itself is down. Only when the person says the
   SEFAZ is unavailable — **never as a retry for a rejection**: a rejection is about the data,
   and contingency does not change the data.
+  With it, `contingency_started_at` (when the contingency began, ISO 8601 with a timezone
+  offset; defaults to the emission moment and may not be later than it) and
+  `contingency_reason` (why, 15 to 256 characters; the API has a default reason) may be sent.
+  Both are refused without `contingency`, and only when the person gave them.
 
 ## Order
 

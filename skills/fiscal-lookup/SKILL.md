@@ -53,8 +53,11 @@ known: it decides an intrastate (5xxx) or interstate (6xxx) CFOP.
   person accepts it. A code the person will reuse is kept with `save_item`; see
   `manage-items`.
 - When `missing_information` is not empty, ask the person exactly those questions and call
-  again with the answers in the matching arguments (`operation_scope`, `purpose`,
+  again with the answers in the matching arguments (`operation_scope`, `origin`, `purpose`,
   `contains_alcohol`, `service_city_code`, `tax_retained`). Do not answer them yourself.
+- **`origin`** says whether the company resells the goods (`resale`, CFOP `x102`) or sells its
+  own production (`own_production`, `x101`). The same item gets a different CFOP for each, so
+  when the question comes up, ask the person; never assume one.
 
 `metadata` carries whatever the family publishes beyond a code and a description, and it
 differs: `utrib` on an NCM, `ncm_code` on a CEST, `tax_type` on a CST, nothing at all on
@@ -64,10 +67,16 @@ an ISS service. Report what is there instead of expecting a fixed shape.
 
 `suggest_nbs` takes an NFS-e service code (`1.07`, `01.07.00` or `010700`) and lists the NBS
 codes Anexo VIII pairs with it, each with the `operation_indicator` (cIndOp) and
-`ibs_cbs_classification` (cClassTrib) the annex lists. They are suggestions: show them, let
-the person pick one, and only then put it on the item as `nbs`, with the other two in the
-item's `ibs_cbs` group when the person also confirms them. An empty list means the annex
-lists none for that code, not that the code is wrong.
+`ibs_cbs_classification` (cClassTrib) the annex lists. Each row also carries, when the
+official tables give them, `classification_cst` (the CST for the item's `ibs_cbs`),
+`reduction_ibs` and `reduction_cbs` (the cClassTrib's reduction, in percent), `legal_reference`
+(the LC 214/2025 article behind it), `incidence` (where the annex says the IBS is due) and
+`operation_variants` (the cIndOp for the same operation when it is not onerous or the acquirer
+is abroad: `onerous_domestic`, `onerous_abroad`, `free_domestic`, `free_abroad`). Show the
+legal basis and the reductions with the row, so the person picks knowing what each one means.
+They are suggestions: show them, let the person pick one, and only then put it on the item as
+`nbs`, with the other fields in the item's `ibs_cbs` group when the person also confirms them.
+An empty list means the annex lists none for that code, not that the code is wrong.
 
 ## Simulating IBS/CBS
 
