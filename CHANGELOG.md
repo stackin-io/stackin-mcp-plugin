@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.9.0 — 2026-11-25
+
+### Features
+- **skills:** bring the skills level with MCP 0.21.0 and API v0.64.0 (#22)
+
 ## v1.8.0 — 2026-11-24
 
 ### Features
