@@ -20,7 +20,8 @@ a message.
    HTTP code of the transmission and is not it.
 3. `explain_rejection` with the same id. It reads that reply for someone who does not speak
    SEFAZ: the `code`, the message **verbatim**, what it means, the steps to fix it, the field
-   at fault and, when there is one, a `suggested` value. It changes nothing, and a document
+   at fault and, when there is one, a `suggested` value. It also carries `source`, `actions`,
+   and, for a duplicate number, `related` and `comparison`. It changes nothing, and a document
    that is not rejected is refused (409).
 4. Explain, then say what to change.
 
@@ -31,6 +32,16 @@ a message.
 - **`transient: true` means the authority was down, not that the data is wrong.** Nothing on
   the document needs changing: reissue it once the authorizer is back, and say so rather than
   inventing a correction.
+- **`source` says how far to trust the wording.** `catalogue` is a rejection code Stackin
+  knows; `official_rule` is the authority's published rule for that code; `authority` means
+  only the authority's own message was available, so quote it and do not add a cause.
+- **`actions` lists what can be done:** `edit` (change the data), `retry`, `resend`, `company`
+  (fix the company's registration) or `certificate`. Offer those, and nothing else.
+- **`related` and `comparison` appear on a duplicate-number rejection** (539, E0014).
+  `related` is the authorized document that already holds the number; `comparison` sets the
+  sent document beside it field by field, with `differs` marking what is not the same. Use them
+  to tell the person whether this is the same document already issued, which needs no
+  reissue, or a different one that needs a new number.
 - The explanation reads the authority's reply; the submissions are the reply itself. When the
   two seem to disagree, quote the submission.
 

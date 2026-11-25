@@ -16,8 +16,10 @@ fields it may carry; a field of the other kind is refused.
 ## Finding one
 
 `list_items` — `search` takes part of the description, the code or the external reference;
-digits also match the NCM and the GTIN. `kind` narrows to products or services. Most recently
-used first; `limit` defaults to 20 and stops at 100, and `offset` pages. `total` is how many
+digits also match the NCM and the GTIN. `kind` narrows to products or services, and `source`
+to where the item came from (`manual`, `import`, `nuvemshop`, `invoice` or `received`). Most
+recently used first unless `sort_by` (`description`, `code`, `unit_price`, `last_used_at`,
+`created_at` or `uses_count`) and `order_by` (`asc` or `desc`) say otherwise; `limit` defaults to 20 and stops at 100, and `offset` pages. `total` is how many
 match, not how many came back, so **absence from one page is not absence from the catalog**.
 
 `list_items` shows active items; with `inactive` set it shows the deactivated ones instead.
@@ -27,7 +29,7 @@ it is kept, it still holds its code, and issuing with its id is refused until it
 reactivated; confirm with the person first.
 
 `get_item` with the id reads one item with its fiscal fields. Each record carries `source` —
-`manual`, `import`, `nuvemshop` or `invoice` — and `last_used_at` and `uses_count`.
+`manual`, `import`, `nuvemshop`, `invoice` or `received` — and `last_used_at` and `uses_count`.
 
 ## Saving one
 
@@ -37,7 +39,12 @@ service). The rest is optional: `code` (the SKU), `unit_price`, `unit`, `externa
 
 - **Product** — `ncm` (8 digits), `cfop`, `tax_situation` (an ICMS CST or a CSOSN), `origin`
   (needs `tax_situation`), `cest`, `gtin`.
-- **Service** — `service_code` (LC 116, like `1.07`) and `iss_retained`.
+- **Service** — `service_code` (LC 116, like `1.07`), `nbs` (nine digits; only from the
+  person or a `suggest_nbs` row they confirmed), `municipal_service_code` (the municipality's
+  tax code, three digits), `internal_code` (the issuer's own code, up to 20 letters or digits)
+  and `iss_retained`. On an issuance line that sends none of them, the saved ones fill in.
+
+`source` may be sent when creating (default `manual`).
 
 **Nothing fiscal is required to save**, and an NF-e still refuses a line with no `ncm` and
 `cfop` when it is issued. So a product may be saved before it is classified; classify it

@@ -12,7 +12,9 @@ document and the address come from there. Nothing here issues a document or spen
 ## Finding one
 
 `list_clients` — `search` takes part of the name, or the CPF/CNPJ with or without
-punctuation. Most recently used first; `limit` defaults to 20 and stops at 100, and `offset`
+punctuation. `source` narrows to where the client came from (`manual`, `issued`, `issuance`
+or `import`). Most recently used first unless `sort_by` (`name`, `last_used_at`, `created_at`
+or `uses_count`) and `order_by` (`asc` or `desc`) say otherwise; `limit` defaults to 20 and stops at 100, and `offset`
 pages. `total` is how many match, not how many came back, so **absence from one page is not
 absence from the registry**.
 
@@ -30,7 +32,8 @@ with the person first.
 
 `save_client` with `name` and `tax_id`. The CPF/CNPJ is required except for a buyer abroad,
 whose address carries `state: "EX"` and whose document goes in `foreign_id`. The rest is
-optional: `state_registration`, `email`, `phone`, `address` and `notes` (up to 500
+optional: `state_registration`, `municipal_registration` (up to 15 characters),
+`email`, `phone`, `address` and `notes` (up to 500
 characters).
 
 There is usually no need to: a new recipient is saved after a successful issuance on its
